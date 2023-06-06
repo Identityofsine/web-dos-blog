@@ -1,0 +1,57 @@
+@import "../assets/fonts/dos/dos.scss";
+page{
+    width: 95vw;
+    height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    overflow: auto;
+
+    &::-webkit-scrollbar{
+        display: none;
+    }
+
+
+    .dos-text{
+        width: fit-content;
+        span{
+            font-family: "DOS";
+            color: white;
+            font-size: 2vw;
+            white-space: pre-wrap;
+
+        }
+    }
+    .dos-command-container{
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap:5px;
+        white-space: pre-wrap;
+    }
+    .dos-current-line{
+        position: relative;
+        display: flex;
+        font-family: "DOS";
+        color: white;
+        font-size: 2vw;
+        gap:2px;
+        white-space: pre-wrap;
+
+        .blinker{
+            position: absolute;
+            right:-1vw;
+            @keyframes blink {
+                0%{
+                    opacity: 0;
+                }
+                50%{
+                    opacity: 1;
+                }
+                100%{
+                    opacity: 0;
+                }
+            }
+            animation: blink 750ms infinite step-end;
+        }
+    }
+}
