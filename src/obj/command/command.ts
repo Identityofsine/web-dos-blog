@@ -20,13 +20,22 @@ export class Argument {
 
 }
 
-
+/**
+ * This class is used to contain command properties and methods to easily allow access and mutation to the commands and their behavior. This allows the commands to be easily added into the CommandList 
+ */
 export class Command {
     private _name: string;
     private _arguments: Argument[];
     private _description: string;
     private _function: (args : Argument[] | undefined) => string;
 
+    /**
+     * 
+     * @param {string} name Name of Command
+     * @param {string} description Command Description (used in help)
+     * @param {Argument[]} arg Argument Array (if the command requires one)
+     * @param {() => string} func onRun Function
+     */
     constructor(name: string, description : string, arg: Argument[], func: () => string) {
         this._name = name;
         this._arguments = arg;
@@ -43,10 +52,13 @@ export class Command {
 }
 
 
+/**
+ * This class acts as a singleton instance for housing all the commands used throughout the web-app.
+ */
 export class CommandList {
     private static _commands : Command[] = [];
     
-    constructor(){
+    private constructor(){
     }
 
     /**
