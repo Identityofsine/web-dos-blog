@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useRef, useState } from 'react'
+import React, { createRef, useEffect, useRef, useState } from 'react'
 import "./dos.scss";
 
 /**
@@ -15,6 +15,12 @@ const DosText = ({text = ""}) => {
     )
 }
 
+type DosCurrentLineProps = {
+    text: string,
+    onEnter: (command : string) => void,
+}
+
+
 /**
  * @summary This is a function that is responsible for displaying the current Line and its header on the screen, this is very important for typing and should never be used twice.
  * @warning This function should only be used once -- ever.
@@ -22,12 +28,12 @@ const DosText = ({text = ""}) => {
  * @param {(command) => {}} onEnterFunction this function will be called whenever the user presses enter on their keyboard. 
  * @returns DosCurrentLine Object
  */
-function DosCurrentLine({text, onEnter = (command) => {}}) {
+function DosCurrentLine({text, onEnter = (command) => {}} : DosCurrentLineProps) {
     
     const [keyboardinput, setKeyboardInput] = useState("");
     useEffect(() => {
 
-        const handleKeyDown = (ev) => {
+        const handleKeyDown = (ev : KeyboardEvent) => {
 
             switch (ev.key) {
                 case "Alt":
@@ -84,14 +90,17 @@ function DosCurrentLine({text, onEnter = (command) => {}}) {
  */
 function DosPage() {
 
-    const [curDirectory, setCurrentDirectory] = useState("C:\\Sex>");
-    const [oldCommands, setOldCommands] = useState([]);
-    const ref = useRef();
+    const [curDirectory, setCurrentDirectory] = useState("C:\\>");
+    const [oldCommands, setOldCommands] = useState<string[]>([]);
+    const ref = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {ref.current.scrollTop = ref.current.scrollHeight;}, [oldCommands])
+    useEffect(() => {
+        if(ref.current)
+            ref.current.scrollTop = ref.current.scrollHeight;
+    }, [oldCommands])
 
-    const onEnterDos = (command) => {
-        setOldCommands(preventry => {
+    const onEnterDos = (command : string) => {
+        setOldCommands((preventry : any )=> {
             var temp = [...preventry];
             if (temp.at(temp.length - 1) === command) return preventry;
             if (command === " " || command === "")
@@ -103,14 +112,14 @@ function DosPage() {
     }
 
   return (
-    <page ref={ref}>
+    <div className='dos-command-page' ref={ref as React.RefObject<HTMLDivElement>}>
         <div className='dos-command-container'>
             {oldCommands.map(d => (
                 <DosText text={d}/>
             ))}
             <DosCurrentLine text={curDirectory} onEnter={(command) => onEnterDos(command)}/>
         </div>
-    </page>
+    </div>
   )
 }
 
