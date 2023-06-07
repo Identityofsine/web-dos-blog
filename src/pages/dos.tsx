@@ -17,43 +17,46 @@ function DosPage() {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if(ref.current)
+        if (ref.current)
             ref.current.scrollTop = ref.current.scrollHeight;
     }, [oldCommands])
 
-    const onEnterDos = (command : string) => {
+    const onEnterDos = (command: string) => {
 
-        const pushCommandToStack = (_command: string, stack : any[]) => {
+        const pushCommandToStack = (_command: string, stack: any[]) => {
             var temp = [...stack];
-            if (temp.at(temp.length - 1) === _command) return stack;
+            if (temp.at(temp.length - 1) === _command)
+                return stack;
             if (_command === " " || _command === "")
                 temp.push(String.fromCharCode(160));
             else
                 temp.push(_command);
             return temp;
         }
+        pushCommandToStack(command, oldCommands);
 
-        const setCMDState = (_command : string) =>
-        {
-            setOldCommands((preventry : any ) => {
+        const setCMDState = (_command: string) => {
+            setOldCommands((preventry: any) => {
                 return pushCommandToStack(_command, preventry);
             });
         }
-
         setCMDState(command);
-        handleCommand([command], (_command : string) => setCMDState(_command));
+        handleCommand([command], (_command: string) => setCMDState(_command));
+
+        return '';
     }
 
-  return (
-    <div className='dos-command-page' ref={ref as React.RefObject<HTMLDivElement>}>
-        <div className='dos-command-container'>
-            {oldCommands.map(d => (
-                <DosText text={d}/>
-            ))}
-            <DosCurrentLine text={curDirectory} onEnter={(command) => onEnterDos(command)}/>
+
+    return (
+        <div className='dos-command-page' ref={ref as React.RefObject<HTMLDivElement>}>
+            <div className='dos-command-container'>
+                {oldCommands.map(d => (
+                    <DosText text={d} />
+                ))}
+                <DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} />
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default DosPage

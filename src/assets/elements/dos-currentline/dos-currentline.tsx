@@ -4,7 +4,7 @@ import "./dos-currentline.scss"
 
 type DosCurrentLineProps = {
     text: string,
-    onEnter: (command : string) => void,
+    onEnter: (command : string) => string,
 }
 
 
@@ -12,10 +12,10 @@ type DosCurrentLineProps = {
  * @summary This is a function that is responsible for displaying the current Line and its header on the screen, this is very important for typing and should never be used twice.
  * @warning This function should only be used once -- ever.
  * @param {string} text 
- * @param {(command) => {}} onEnterFunction this function will be called whenever the user presses enter on their keyboard. 
+ * @param {(command) : string => {}} onEnterFunction this function will be called whenever the user presses enter on their keyboard. 
  * @returns DosCurrentLine Object
  */
-function DosCurrentLine({text, onEnter = (command) => {}} : DosCurrentLineProps) {
+function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps) {
     
     const [keyboardinput, setKeyboardInput] = useState("");
     useEffect(() => {
@@ -39,8 +39,9 @@ function DosCurrentLine({text, onEnter = (command) => {}} : DosCurrentLineProps)
                     setKeyboardInput(prevstate => prevstate.slice(0, prevstate.length - 1))
                 else if (ev.key === "Enter"){
                     //handle enter key
-                    console.log("i got hit")
-                    setKeyboardInput(prevstate => {onEnter(prevstate); return ''});
+                    
+                    setKeyboardInput(prevstate => {return onEnter(prevstate);});
+                    return;
                 }
             }
             else {
