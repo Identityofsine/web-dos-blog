@@ -1,7 +1,5 @@
-/* eslint-disable */
-import React, { createRef, useEffect, useRef, useState } from 'react'
-import "./dos.scss";
-
+import React, { useEffect, useRef, useState } from 'react'
+import './dos.scss';
 /**
  * @summary This is a function that is responsible for displaying dos text onto the screen
  * @param {string} text 
@@ -90,7 +88,7 @@ function DosCurrentLine({text, onEnter = (command) => {}} : DosCurrentLineProps)
  */
 function DosPage() {
 
-    const [curDirectory, setCurrentDirectory] = useState("C:\\>");
+    const [curDirectory, setCurrentDirectory] = useState("C:\\sex>");
     const [oldCommands, setOldCommands] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
 
