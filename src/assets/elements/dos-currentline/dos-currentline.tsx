@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DosText from "../dos-text/dos-text";
+import "./dos-currentline.scss"
 
 type DosCurrentLineProps = {
     text: string,

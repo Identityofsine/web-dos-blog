@@ -11,7 +11,7 @@ import DosCurrentLine from '../assets/elements/dos-currentline/dos-currentline';
  */
 function DosPage() {
 
-    const [curDirectory, setCurrentDirectory] = useState("C:\\sex>");
+    const [curDirectory, setCurrentDirectory] = useState("C:\\>");
     const [oldCommands, setOldCommands] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
 
