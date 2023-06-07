@@ -39,6 +39,7 @@ function DosCurrentLine({text, onEnter = (command) => {}} : DosCurrentLineProps)
                     setKeyboardInput(prevstate => prevstate.slice(0, prevstate.length - 1))
                 else if (ev.key === "Enter"){
                     //handle enter key
+                    console.log("i got hit")
                     setKeyboardInput(prevstate => {onEnter(prevstate); return ''});
                 }
             }

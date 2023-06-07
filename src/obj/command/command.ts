@@ -38,23 +38,22 @@ class Command {
 
 
 class CommandList {
-    private static _commands : Command[];
+    private static _commands : Command[] = [];
     
     constructor(){
-        CommandList._commands = [];
     }
 
     public static addCommand(cmd:Command) {
-        const i = CommandList._commands.find(c => c.getName() === cmd.getName());
+        const i = this._commands.find(c => c.getName() === cmd.getName());
         if(i) {
             console.log("ℹ️ Command Already Exists.")
         } else {
-            CommandList._commands.push(cmd);
+            this._commands.push(cmd);
         }
     }
 
     public static getCommand(name:string):Command | undefined {
-        for(const cmd of CommandList._commands) {
+        for(const cmd of this._commands) {
             if(cmd.getName().toLocaleLowerCase() === name.toLocaleLowerCase())
                 return cmd;
         }
@@ -72,7 +71,7 @@ type CommandSettings = {
 
 
 
-function handleCommand(command: string[], printFunction: (text: string) => void) : Boolean{
+export default function handleCommand(command: string[], printFunction: (text: string) => void) : Boolean{
     if(command.length < 0) return false;
     const cmd = CommandList.getCommand(command[0]);
     if(cmd) {

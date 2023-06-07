@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import './dos.scss';
 import DosText from '../assets/elements/dos-text/dos-text';
 import DosCurrentLine from '../assets/elements/dos-currentline/dos-currentline';
+import handleCommand from '../obj/command/command';
 
 
 
@@ -21,15 +22,26 @@ function DosPage() {
     }, [oldCommands])
 
     const onEnterDos = (command : string) => {
-        setOldCommands((preventry : any )=> {
-            var temp = [...preventry];
-            if (temp.at(temp.length - 1) === command) return preventry;
-            if (command === " " || command === "")
+
+        const pushCommandToStack = (_command: string, stack : any[]) => {
+            var temp = [...stack];
+            if (temp.at(temp.length - 1) === _command) return stack;
+            if (_command === " " || _command === "")
                 temp.push(String.fromCharCode(160));
             else
-                temp.push(command);
+                temp.push(_command);
             return temp;
-        });
+        }
+
+        const setCMDState = (_command : string) =>
+        {
+            setOldCommands((preventry : any ) => {
+                return pushCommandToStack(_command, preventry);
+            });
+        }
+
+        setCMDState(command);
+        handleCommand([command], (_command : string) => setCMDState(_command));
     }
 
   return (
