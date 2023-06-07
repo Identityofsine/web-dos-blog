@@ -2,6 +2,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import "./dos.scss";
 
+/**
+ * @summary This is a function that is responsible for displaying dos text onto the screen
+ * @param {string} text 
+ * @returns DosText Element
+ */
 const DosText = ({text = ""}) => {
     return (
         <div className='dos-text'>
@@ -10,7 +15,13 @@ const DosText = ({text = ""}) => {
     )
 }
 
-
+/**
+ * @summary This is a function that is responsible for displaying the current Line and its header on the screen, this is very important for typing and should never be used twice.
+ * @warning This function should only be used once -- ever.
+ * @param {string} text 
+ * @param {(command) => {}} onEnterFunction this function will be called whenever the user presses enter on their keyboard. 
+ * @returns DosCurrentLine Object
+ */
 function DosCurrentLine({text, onEnter = (command) => {}}) {
     
     const [keyboardinput, setKeyboardInput] = useState("");
@@ -67,6 +78,10 @@ function DosCurrentLine({text, onEnter = (command) => {}}) {
 }
 
 
+/**
+ * @summary This function returns a dospage object, which should be the entire page, at some point there will be a context for the directory header for the new line.
+ * @returns DosPage Element
+ */
 function DosPage() {
 
     const [curDirectory, setCurrentDirectory] = useState("C:\\Sex>");
