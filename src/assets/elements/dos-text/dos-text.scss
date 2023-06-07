@@ -1,0 +1,13 @@
+@import url("../../fonts/dos/dos.scss");
+
+
+.dos-text{
+    width: fit-content;
+    span{
+        font-family: "DOS";
+        color: white;
+        font-size: 2vw;
+        white-space: pre-wrap;
+
+    }
+}
