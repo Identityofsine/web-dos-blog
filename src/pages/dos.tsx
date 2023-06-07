@@ -25,6 +25,7 @@ function DosPage() {
     //onenter function passed into DosCurrentLine
     const onEnterDos = (command: string) => {
         //push command to to stack
+        console.log("command: ", command);
         const pushCommandToStack = (_command: string, stack: any[]) => {
             var temp = [...stack];
             if (temp.at(temp.length - 1) === _command)
@@ -36,8 +37,8 @@ function DosPage() {
             return temp;
         }
         pushCommandToStack(command, oldCommands);
+
         //set the state of the function
-        
         const setCMDState = (_command: string) => {
             setOldCommands((preventry: any) => {
                 return pushCommandToStack(_command, preventry);

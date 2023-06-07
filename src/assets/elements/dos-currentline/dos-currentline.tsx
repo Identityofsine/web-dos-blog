@@ -18,9 +18,8 @@ type DosCurrentLineProps = {
 function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps) {
     
     const [keyboardinput, setKeyboardInput] = useState("");
+
     useEffect(() => {
-
-
         //this function handles on keydown events
         const handleKeyDown = (ev : KeyboardEvent) => {
             //ignore these keys for now
@@ -40,12 +39,13 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
                 //weird if statement but it works
                 if(ev.key === "Backspace") {
                     //handle backspace
-                    setKeyboardInput(prevstate => prevstate.slice(0, prevstate.length - 1))
+                    setKeyboardInput(prevstate => prevstate.slice(0, prevstate.length - 1));
+                    return;
                 }
                 else if (ev.key === "Enter"){
                     //handle enter key
-                    setKeyboardInput(prevstate => {return onEnter(prevstate);});
-                    return;
+                    console.log("enter key");
+                    setKeyboardInput(onEnter(keyboardinput));
                 }
             }
             else {
@@ -62,7 +62,7 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
           };
-    }, [])
+    }, [keyboardinput])
 
 
 

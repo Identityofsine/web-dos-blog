@@ -78,7 +78,7 @@ export default function handleCommand(command: string[], printFunction: (text: s
         printFunction(cmd.call());
         return true;
     }
-
+    // printFunction('sex');
     printFunction(`'${command[0]}' is not recognized as an internal or external command,
     operable program or batch file.`);    
     return false;
