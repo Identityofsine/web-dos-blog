@@ -33,6 +33,9 @@ class Command {
         this._arguments = arg;
         this._function = func;
     }
+
+    getName(): string { return this._name};
+    call() {this._function();}
 }
 
 
@@ -41,6 +44,15 @@ class CommandList {
     
     constructor(){
         this._commands = [];
+    }
+
+    addCommand(cmd:Command) {
+        const i = this._commands.find(c => c.getName() === cmd.getName());
+        if(i) {
+            console.log("ℹ️ Command Already Exists.")
+        } else {
+            this._commands.push(cmd);
+        }
     }
 }
 
