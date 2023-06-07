@@ -20,8 +20,10 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
     const [keyboardinput, setKeyboardInput] = useState("");
     useEffect(() => {
 
-        const handleKeyDown = (ev : KeyboardEvent) => {
 
+        //this function handles on keydown events
+        const handleKeyDown = (ev : KeyboardEvent) => {
+            //ignore these keys for now
             switch (ev.key) {
                 case "Alt":
                 case "Control":
@@ -33,21 +35,23 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
                     break;
             }
 
-
+            //backspace or enter
             if (ev.key === "Backspace" || ev.key === "Enter") {
-                if(ev.key === "Backspace")
+                //weird if statement but it works
+                if(ev.key === "Backspace") {
+                    //handle backspace
                     setKeyboardInput(prevstate => prevstate.slice(0, prevstate.length - 1))
+                }
                 else if (ev.key === "Enter"){
                     //handle enter key
-                    
                     setKeyboardInput(prevstate => {return onEnter(prevstate);});
                     return;
                 }
             }
             else {
-                if(ev.key === " ")
+                if(ev.key === " ") //handle space character
                     setKeyboardInput(prevState => prevState + String.fromCharCode(160));
-                else
+                else //print regular character
                     setKeyboardInput(prevState => prevState + ev.key);
             }
 
@@ -65,7 +69,7 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
 
     return(
         <div className='dos-current-line'>
-            <DosText text={text}/>
+            <DosText text={text}/> 
             <DosText text={keyboardinput}/>
             <span className='blinker'>_</span>
         </div>
