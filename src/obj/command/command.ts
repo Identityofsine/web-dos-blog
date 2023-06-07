@@ -25,7 +25,7 @@ export class Command {
     private _name: string;
     private _arguments: Argument[];
     private _description: string;
-    private _function: () => string;
+    private _function: (args : Argument[] | undefined) => string;
 
     constructor(name: string, description : string, arg: Argument[], func: () => string) {
         this._name = name;
@@ -38,7 +38,7 @@ export class Command {
 
     getDescription(): string { return this._description;}
     getName(): string { return this._name};
-    call():string {return this._function();}
+    call(args : Argument[] | undefined):string {return this._function(args);}
     overrideCall(_newfunc: () => string) {this._function = _newfunc;}
 }
 
@@ -49,6 +49,10 @@ export class CommandList {
     constructor(){
     }
 
+    /**
+     * @summary This adds a command to the list of commands, it checks if a command already exists with its name and if it doesnt it adds that command to the list
+     * @param {Command} cmd
+     */
     public static addCommand(cmd:Command) {
         const i = this._commands.find(c => c.getName() === cmd.getName());
         if(i) {
@@ -58,6 +62,11 @@ export class CommandList {
         }
     }
 
+    /**
+     * @summary This gets the command in the list of commands, this should be quick and hopefully there isn't a plathora of commands.
+     * @param {string} name Name of the command(case-insensitive)
+     * @returns 
+     */
     public static getCommand(name:string):Command | undefined {
         for(const cmd of this._commands) {
             if(cmd.getName().toLocaleLowerCase() === name.toLocaleLowerCase())
@@ -85,7 +94,9 @@ export default function handleCommand(command: string[], printFunction: (text: s
     if(command.length < 0) return false;
     const cmd = CommandList.getCommand(command[0]);
     if(cmd) {
-        printFunction(cmd.call());
+        const args : Argument[] = [];
+        //TODO: Write argument parsing function
+        printFunction(cmd.call(args));
         return true;
     }
     // printFunction('sex');
