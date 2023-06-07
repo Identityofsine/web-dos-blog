@@ -3,7 +3,7 @@
  */
 
 
-class Argument {
+export class Argument {
     private _id: string; // the id of the command
     private _expected_inputs: number; // the expected amount of inputs per arg, (0) meaning the arg is treated as a flag
     private onArgument: (input:String[]) => boolean; // function to be called when the argument is enabled
@@ -21,23 +21,29 @@ class Argument {
 }
 
 
-class Command {
+export class Command {
     private _name: string;
     private _arguments: Argument[];
+    private _description: string;
     private _function: () => string;
 
-    constructor(name: string, arg: Argument[], func: () => string) {
+    constructor(name: string, description : string, arg: Argument[], func: () => string) {
         this._name = name;
         this._arguments = arg;
+        this._description = description;
         this._function = func;
     }
 
+
+
+    getDescription(): string { return this._description;}
     getName(): string { return this._name};
     call():string {return this._function();}
+    overrideCall(_newfunc: () => string) {this._function = _newfunc;}
 }
 
 
-class CommandList {
+export class CommandList {
     private static _commands : Command[] = [];
     
     constructor(){
@@ -58,6 +64,10 @@ class CommandList {
                 return cmd;
         }
         return undefined;
+    }
+
+    public static getAllCommands():Command[] {
+        return this._commands;
     }
 }
 

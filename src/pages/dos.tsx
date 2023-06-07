@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import './dos.scss';
 import DosText from '../assets/elements/dos-text/dos-text';
 import DosCurrentLine from '../assets/elements/dos-currentline/dos-currentline';
-import handleCommand from '../obj/command/command';
+import handleCommand, { Command, CommandList } from '../obj/command/command';
 
 
 
@@ -15,6 +15,29 @@ function DosPage() {
     const [curDirectory, setCurrentDirectory] = useState("C:\\>");
     const [oldCommands, setOldCommands] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
+
+    /**
+     * @summary Simple function that creates and assigns commands their functions...
+     */
+    const commandConfigs = () => {
+        CommandList.getCommand("help")?.overrideCall(() => {
+            var outputstring = "";
+            outputstring += "=#=#=#=#=#=#=#=DOS-WEB-DEFAULT HELP=#=#=#=#=#=#=#=\n";
+            const commands = CommandList.getAllCommands();
+            for(let i = 0; i < commands.length; i++) {
+                const cmd : Command = commands[i];
+                outputstring += `${cmd.getName()} - ${cmd.getDescription()}\n`;
+            }
+            outputstring += "=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#==#=#=#=#=#=#=#=\n";
+
+            return outputstring;
+        });
+    }
+
+    useEffect(() => {
+        commandConfigs();
+    }, []);
+
 
     useEffect(() => {
         //scroll to the bottom when a new line is printed
