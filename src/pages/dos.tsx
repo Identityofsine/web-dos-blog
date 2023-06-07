@@ -78,7 +78,7 @@ function DosPage() {
         <div className='dos-command-page' ref={ref as React.RefObject<HTMLDivElement>}>
             <div className='dos-command-container'>
                 {oldCommands.map(d => (
-                    <DosText text={d} />
+                    <DosText text={d} color='white' />
                 ))}
                 <DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} />
             </div>

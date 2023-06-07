@@ -6,10 +6,10 @@ import "./dos-text.scss";
  * @param {string} text 
  * @returns DosText Element
  */
-const DosText = ({text = ""}) => {
+const DosText = ({text = "", color = 'white' || 'yellow' || 'red'}) => {
     return (
         <div className='dos-text'>
-            <span>{text}</span>
+            <span style={{color:color === 'white' ? '#ffffff' : color === 'yellow' ? '#ffff00' : color === 'red' ? '#ff0000' : '#ffffff'}}>{text}</span>
         </div>
     )
 }
