@@ -4,8 +4,14 @@ export class FileSystem {
     rootFolder: DirectoryTree;
     currentFolder: DirectoryTree;
     constructor() {
-        this.rootFolder = new DirectoryTree("/");
+        this.rootFolder = this.initRootFolder();
         this.currentFolder = this.rootFolder;
+    }
+
+    private initRootFolder() : DirectoryTree {
+        const rootFolder = new DirectoryTree("");
+        rootFolder.children.push(new DirectoryTree("bin", rootFolder));
+        return rootFolder;
     }
 
     changeDirectory(path : string) {
@@ -18,10 +24,12 @@ export class FileSystem {
 export class DirectoryTree {
     //children of the tree
     folderName: string;
+    parent : DirectoryTree | undefined;
     children : DirectoryTree[] = [];
 
-    constructor(folderName: string){
+    constructor(folderName: string, parent : DirectoryTree | undefined = undefined) {
         this.folderName = folderName;
+        this.parent = parent;
     }
 
     /**
@@ -30,7 +38,6 @@ export class DirectoryTree {
      */
     getDirectory(path: string) : DirectoryTree | undefined{
         if(path.trim() === "") return undefined;
-        
     }
 
 }
