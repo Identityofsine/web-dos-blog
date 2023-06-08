@@ -19,7 +19,12 @@ export class FileSystem {
 
         return rootFolder;
     }
-
+    
+    /**
+     * @summary This function is responsible for the cd command in web-dos. This checks the string if it is valid or contains any specials like ./ or ../ and responds. It returns false if the directory could not be found or isn't possible to cd into(like ../ on the root folder).
+     * @param {string} path a string path to the new directory
+     * @returns if the path was found (or changed)
+     */
     changeDirectory(path : string) : boolean{
         if(path === '../' || path === '..') {
             const _temp = this.currentFolder;
