@@ -14,8 +14,19 @@ export class FileSystem {
         return rootFolder;
     }
 
-    changeDirectory(path : string) {
+    changeDirectory(path : string) : boolean{
+        const foundDIR = this.currentFolder.searchDirectory(path);
+        if(foundDIR) {
+            const _temp = this.currentFolder;
+            foundDIR.parent = _temp;
+            this.currentFolder = foundDIR;
+            return true;
+        } else
+            return false;
+    }
 
+    getCurrentPath() : string {
+        return this.currentFolder.returnPath();
     }
 
 }
@@ -38,6 +49,22 @@ export class DirectoryTree {
      */
     getDirectory(path: string) : DirectoryTree | undefined{
         if(path.trim() === "") return undefined;
+    }
+
+    returnPath() : string {
+        let path = "";
+        if(this.parent != undefined) {
+            path += this.parent.returnPath();
+        } 
+        path += `/${this.folderName}`;
+        return path;
+    }
+
+    searchDirectory(folder : string) : DirectoryTree | undefined {
+        for(let dir of this.children) {
+            if(dir.folderName === folder) return dir;
+        }
+        return undefined;
     }
 
 }
