@@ -11,6 +11,8 @@ export class FileSystem {
     private initRootFolder() : DirectoryTree {
         const rootFolder = new DirectoryTree("");
         rootFolder.children.push(new DirectoryTree("bin", rootFolder));
+        rootFolder.children.push(new DirectoryTree("var", rootFolder));
+        rootFolder.children.push(new DirectoryTree("etc", rootFolder));
         return rootFolder;
     }
 
@@ -56,8 +58,16 @@ export class DirectoryTree {
         if(this.parent != undefined) {
             path += this.parent.returnPath();
         } 
-        path += `/${this.folderName}`;
+        path += `${this.folderName}/`;
         return path;
+    }
+
+    listChildren() : string[] {
+        const childPaths : string[] = [];
+        for(let dir of this.children) {
+            childPaths.push(dir.returnPath());
+        }
+        return childPaths;
     }
 
     searchDirectory(folder : string) : DirectoryTree | undefined {
