@@ -7,15 +7,18 @@ export class Argument {
     private _id: string; // the id of the command
     private _expected_inputs: number; // the expected amount of inputs per arg, (0) meaning the arg is treated as a flag
     private onArgument: (input:String[]) => boolean; // function to be called when the argument is enabled
+    private _required : boolean; // whether the argument is required
     
-    constructor(name: string, expected_inputs: number, onArgument: (input:String[]) => boolean){
+    constructor(name: string, expected_inputs: number, required: boolean, onArgument: (input:String[]) => boolean){
         this._id = name;
         this._expected_inputs = expected_inputs;
         this.onArgument = onArgument;
+        this._required = required;
     }
 
     getID(): string { return this._id; }
     getInputs(): number { return this._expected_inputs; }
+    isRequired(): boolean { return this._required; }
     call(input:String[]) : boolean { return this.onArgument(input);}
 
 }

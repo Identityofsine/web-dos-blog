@@ -12,7 +12,7 @@ function App() {
   
   useEffect(() => {
     CommandList.addCommand(new Command('hw', 'Prints out Hello World!', [], () => "Hello World!"));
-    CommandList.addCommand(new Command('cd', 'Changed current directory', [], () => "ERROR: Function not implemented!"));
+    CommandList.addCommand(new Command('cd', 'Changed current directory', [new Argument('dir', 1, (path) => {return path.length > 0})], () => "ERROR: Function not implemented!"));
     CommandList.addCommand(new Command('ls', 'List everything in the current directory', [], () => {
       let returnString = `Directory of ${root.currentFolder.returnPath()}\n`;
       const children = root.currentFolder.listChildren();
