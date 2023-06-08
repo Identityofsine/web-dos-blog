@@ -39,7 +39,7 @@ export class Command {
      * @param {Argument[]} arg Argument Array (if the command requires one)
      * @param {() => string} func onRun Function
      */
-    constructor(name: string, description : string, arg: Argument[], func: () => string) {
+    constructor(name: string, description : string, arg: Argument[], func: (args : Argument[] | undefined) => string) {
         this._name = name;
         this._arguments = arg;
         this._description = description;
