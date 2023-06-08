@@ -68,7 +68,7 @@ function DosPage() {
             });
         }
         setCMDState(command);
-        handleCommand([command], (_command: string) => setCMDState(_command));
+        handleCommand([command], [], (_command: string) => setCMDState(_command));
 
         return '';
     }
