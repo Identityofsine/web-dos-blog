@@ -19,6 +19,15 @@ export class FileSystem {
     }
 
     changeDirectory(path : string) : boolean{
+        if(path === '../' || path === '..') {
+            const _temp = this.currentFolder;
+            if(this.currentFolder.parent !== undefined)
+                this.currentFolder = this.currentFolder.parent;
+            else 
+                return false;
+            return true;
+        }
+        if(path === '.' || path === './') return true;
         const foundDIR = this.currentFolder.searchDirectory(path);
         if(foundDIR) {
             const _temp = this.currentFolder;

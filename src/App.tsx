@@ -12,9 +12,14 @@ function App() {
   
   useEffect(() => {
     CommandList.addCommand(new Command('hw', 'Prints out Hello World!', [], () => "Hello World!"));
-    CommandList.addCommand(new Command('cd', 'Changed current directory', [new Argument('dir', 1, true, (path) => {return path.length > 0})], (args : ArgumentInput[] | undefined) => {
+    CommandList.addCommand(new Command('cd', 'Changed current directory', [new Argument('', 1, true, (path) => {return path.length > 0})], (args : ArgumentInput[] | undefined) => {
       if(!args || args.length <= 0) return "ERROR: No arguments";
-      return "ERROR: Function not implemented!";
+      const _found_arg = args.find(arg => arg.name === '');
+      if(!_found_arg || !_found_arg.content) return "ERROR: No arguments";
+      const _cd_result = root.changeDirectory(_found_arg.content[0]);
+      if(_cd_result) return root.currentFolder.returnPath();
+
+      return "ERROR: Path not found!";
     }));
     CommandList.addCommand(new Command('ls', 'List everything in the current directory', [], () => {
       let returnString = `Directory of ${root.currentFolder.returnPath()}\n`;
