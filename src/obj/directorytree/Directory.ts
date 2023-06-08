@@ -1,5 +1,7 @@
 
-
+/**
+ * This class acts as a Drive for the emulated device. When instantiated, this object acts as a root directory; it keeps track of the currentFolder and the rootFolder (which never changes). There are methods to modify and manipulate the currentFolder.
+ */
 export class FileSystem {
     rootFolder: DirectoryTree;
     currentFolder: DirectoryTree;
