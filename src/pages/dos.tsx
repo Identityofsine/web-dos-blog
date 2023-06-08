@@ -47,8 +47,8 @@ function DosPage() {
 
     //onenter function passed into DosCurrentLine
     const onEnterDos = (command: string) => {
-        //push command to to stack
-        console.log("command: ", command);
+        const _mutated_command = command.trim().split(' ');
+        const _real_command = _mutated_command[0];
         const pushCommandToStack = (_command: string, stack: any[]) => {
             var temp = [...stack];
             if (temp.at(temp.length - 1) === _command)
@@ -59,7 +59,7 @@ function DosPage() {
                 temp.push(_command);
             return temp;
         }
-        pushCommandToStack(command, oldCommands);
+        pushCommandToStack(_real_command, oldCommands);
 
         //set the state of the function
         const setCMDState = (_command: string) => {
@@ -67,8 +67,8 @@ function DosPage() {
                 return pushCommandToStack(_command, preventry);
             });
         }
-        setCMDState(command);
-        handleCommand([command], [], (_command: string) => setCMDState(_command));
+        setCMDState(_real_command);
+        handleCommand([_real_command], [], (_command: string) => setCMDState(_command));
 
         return '';
     }

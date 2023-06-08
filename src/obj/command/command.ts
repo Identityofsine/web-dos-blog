@@ -105,11 +105,12 @@ type CommandSettings = {
 
 
 
-export default function handleCommand(command: string[], args : Argument[] = [], printFunction: (text: string) => void) : Boolean{
+export default function handleCommand(command: string[], args : string[] = [], printFunction: (text: string) => void) : Boolean{
     if(command.length < 0) return false;
     const cmd = CommandList.getCommand(command[0]);
     if(cmd) {
         //TODO: Write argument parsing function
+        const args : Argument[] = [];
         printFunction(cmd.call(args));
         return true;
     }
