@@ -25,7 +25,9 @@ function App() {
     CommandList.addCommand(new Command('help', 'Prints out a table of commands', [], () => "ERROR: Function not implemented!"));
   }, []) //commands
 
-
+  useEffect(() => {
+    //debug change
+  }, [])
 
   return (
     <DosPage/>

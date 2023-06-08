@@ -13,6 +13,8 @@ export class FileSystem {
         rootFolder.children.push(new DirectoryTree("bin", rootFolder));
         rootFolder.children.push(new DirectoryTree("var", rootFolder));
         rootFolder.children.push(new DirectoryTree("etc", rootFolder));
+        rootFolder.children.push(new DirectoryTree("temp", rootFolder));
+
         return rootFolder;
     }
 
