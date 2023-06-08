@@ -118,7 +118,7 @@ export default function handleCommand(command: string[], args : string[] = [], p
     const cmd = CommandList.getCommand(command[0]);
     if(cmd) {
         //TODO: Write argument parsing function
-        const createArgumentFromString = (text1: string, text2: string) : ArgumentInput => {
+        const createArgumentFromString = (text1: string, text2: string | undefined) : ArgumentInput => {
             let arg : ArgumentInput;
             if(text1.charAt(0) === '-') {
                 //work with text2 instead
@@ -129,9 +129,15 @@ export default function handleCommand(command: string[], args : string[] = [], p
             } else {
                 arg = {name: '', content:[text1]}
             }
+            return arg;
         }
-        const args : ArgumentInput[] = [];
-        printFunction(cmd.call(args));
+        const _args : ArgumentInput[] = [];
+        for(let i = 1; i < args.length; i++) {
+            let _arg = args[i];
+            let _arg_forward = args[i + 1];
+            _args.push(createArgumentFromString(_arg, _arg_forward));
+        }
+        printFunction(cmd.call(_args));
         return true;
     }
     // printFunction('sex');
