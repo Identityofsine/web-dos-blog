@@ -4,7 +4,7 @@
 
 
 export class Argument {
-    private _id: string; // the id of the command
+    private _id: string; // the id of the arg : '', '-d', or '--foo'
     private _expected_inputs: number; // the expected amount of inputs per arg, (0) meaning the arg is treated as a flag
     private onArgument: (input:String[]) => boolean; // function to be called when the argument is enabled
     private _required : boolean; // whether the argument is required
@@ -24,13 +24,21 @@ export class Argument {
 }
 
 /**
+ * This acts as a interface to help a command get it's arguments correctly, 
+ */
+export interface ArgumentInput {
+    name: string;
+    content: string[] | undefined;
+}
+
+/**
  * This class is used to contain command properties and methods to easily allow access and mutation to the commands and their behavior. This allows the commands to be easily added into the CommandList 
  */
 export class Command {
     private _name: string;
     private _arguments: Argument[];
     private _description: string;
-    private _function: (args : Argument[] | undefined) => string;
+    private _function: (args : ArgumentInput[] | undefined) => string;
 
     /**
      * 
@@ -39,7 +47,7 @@ export class Command {
      * @param {Argument[]} arg Argument Array (if the command requires one)
      * @param {() => string} func onRun Function
      */
-    constructor(name: string, description : string, arg: Argument[], func: (args : Argument[] | undefined) => string) {
+    constructor(name: string, description : string, arg: Argument[], func: (args : ArgumentInput[] | undefined) => string) {
         this._name = name;
         this._arguments = arg;
         this._description = description;
@@ -50,7 +58,7 @@ export class Command {
 
     getDescription(): string { return this._description;}
     getName(): string { return this._name};
-    call(args : Argument[] | undefined):string {return this._function(args);}
+    call(args : ArgumentInput[] | undefined):string {return this._function(args);}
     overrideCall(_newfunc: () => string) {this._function = _newfunc;}
 }
 
@@ -110,7 +118,19 @@ export default function handleCommand(command: string[], args : string[] = [], p
     const cmd = CommandList.getCommand(command[0]);
     if(cmd) {
         //TODO: Write argument parsing function
-        const args : Argument[] = [];
+        const createArgumentFromString = (text1: string, text2: string) : ArgumentInput => {
+            let arg : ArgumentInput;
+            if(text1.charAt(0) === '-') {
+                //work with text2 instead
+                if(!text2 || text2?.charAt(0) === '-')
+                    arg = {name:text1,content:[]}
+                else
+                    arg = {name:text1, content:[text2]};
+            } else {
+                arg = {name: '', content:[text1]}
+            }
+        }
+        const args : ArgumentInput[] = [];
         printFunction(cmd.call(args));
         return true;
     }

@@ -47,7 +47,7 @@ function DosPage() {
 
     //onenter function passed into DosCurrentLine
     const onEnterDos = (command: string) => {
-        const _mutated_command = command.trim().split("\s");
+        const _mutated_command = command.trim().split(/\s+/);
         const _real_command = _mutated_command[0].trim();
         console.log(_mutated_command);
         const pushCommandToStack = (_command: string, stack: any[]) => {
@@ -69,7 +69,7 @@ function DosPage() {
             });
         }
         const _args_passthrough = _mutated_command.splice(1, _mutated_command.length - 1);
-        setCMDState(_real_command);
+        setCMDState(command);
         handleCommand([_real_command], _args_passthrough, (_command: string) => setCMDState(_command));
 
         return '';
