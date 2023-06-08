@@ -118,25 +118,34 @@ export default function handleCommand(command: string[], args : string[] = [], p
     const cmd = CommandList.getCommand(command[0]);
     if(cmd) {
         //TODO: Write argument parsing function
-        const createArgumentFromString = (text1: string, text2: string | undefined) : ArgumentInput => {
+        type _argresponse = {
+            argInput: ArgumentInput,
+            iterate: boolean,
+        };
+        const createArgumentFromString = (text1: string, text2: string | undefined) : _argresponse => {
             let arg : ArgumentInput;
             if(text1.charAt(0) === '-') {
                 //work with text2 instead
                 if(!text2 || text2?.charAt(0) === '-')
                     arg = {name:text1,content:[]}
-                else
+                else{
                     arg = {name:text1, content:[text2]};
+                    return {argInput:arg, iterate:true};
+                }
             } else {
                 arg = {name: '', content:[text1]}
             }
-            return arg;
+            return {argInput:arg, iterate:false};
         }
         const _args : ArgumentInput[] = [];
-        for(let i = 1; i < args.length; i++) {
+        for(let i = 0; i < args.length; i++) {
             let _arg = args[i];
             let _arg_forward = args[i + 1];
-            _args.push(createArgumentFromString(_arg, _arg_forward));
+            const _arg_function_response = createArgumentFromString(_arg, _arg_forward);
+            if(_arg_function_response.iterate) i++;
+            _args.push(_arg_function_response.argInput);
         }
+        console.log("args : ", _args);
         printFunction(cmd.call(_args));
         return true;
     }
