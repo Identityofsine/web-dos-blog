@@ -25,6 +25,32 @@ export class FileSystem {
      * @returns if the path was found (or changed)
      */
     changeDirectory(path : string) : boolean{
+        if(path.length <= 0) return false;
+        if(path.startsWith("/")) {
+            if(path === "/") {
+                this.currentFolder = this.rootFolder;
+                return true;
+            } else {
+                //use recursion.
+                let split = path.split("/");
+                split = split.filter(x => x.trim() !== '');
+                console.log(split);
+                let pointer : DirectoryTree | undefined = this.rootFolder;
+                for(let i = 0; i < split.length; i++) {
+                    if(pointer === undefined) return false;
+                    console.log("pointer : ", pointer);
+                    const _temp_pointer = pointer;
+                    pointer = pointer.searchDirectory(split[i]);
+                    if(pointer)
+                        pointer.parent = _temp_pointer;
+                }                
+                if(pointer){
+                    this.currentFolder = pointer;
+                    return true;
+                }
+                return false;
+            }
+        }
         if(path === '../' || path === '..') {
             const _temp = this.currentFolder;
             if(this.currentFolder.parent !== undefined)
