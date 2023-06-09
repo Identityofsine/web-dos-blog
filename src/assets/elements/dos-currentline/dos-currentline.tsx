@@ -28,7 +28,12 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
                 case "Control":
                 case "Shift":
                 case "Meta":
-                  // Exclude Alt, Ctrl, Shift, and Meta keys
+                    // Exclude Alt, Ctrl, Shift, and Meta keys
+                    return;
+                case "Tab":
+                    // autofill code
+                    
+                    ev.preventDefault();
                     return;
                 default:
                     break;
