@@ -32,7 +32,7 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
                     return;
                 case "Tab":
                     // autofill code
-                    
+                    //TODO :: WRITE TAB HANDLING CODE (AUTO COMPLETION)
                     ev.preventDefault();
                     return;
                 default:
