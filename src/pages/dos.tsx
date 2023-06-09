@@ -4,6 +4,8 @@ import DosText from '../assets/elements/dos-text/dos-text';
 import DosCurrentLine from '../assets/elements/dos-currentline/dos-currentline';
 import handleCommand, { Command, CommandList } from '../obj/command/command';
 import { DirectoryContext } from '../context/context';
+import DEFAULT_COMMANDS from '../obj/command/_default_commands';
+import { FileSystem } from '../obj/directorytree/Directory';
 
 
 
@@ -16,6 +18,7 @@ function DosPage() {
     const [curDirectory, setCurrentDirectory] = useState("C:\\>");
     const [oldCommands, setOldCommands] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
+    const root = new FileSystem();
 
     /**
      * @summary Simple function that creates and assigns commands their functions...
@@ -36,6 +39,7 @@ function DosPage() {
     }
 
     useEffect(() => {
+        DEFAULT_COMMANDS(root);
         commandConfigs();
     }, []);
 

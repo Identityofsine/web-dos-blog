@@ -9,10 +9,8 @@ import DEFAULT_COMMANDS from './obj/command/_default_commands'
 
 
 function App() {
-  const root = new FileSystem();
   
   useEffect(() => {
-    DEFAULT_COMMANDS(root);
   }, []) //commands
 
   useEffect(() => {
