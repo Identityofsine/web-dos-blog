@@ -1,3 +1,5 @@
+import { File } from "./File.ts";
+
 /**
  * This class acts as a Drive for the emulated device. When instantiated, this object acts as a root directory; it keeps track of the currentFolder and the rootFolder (which never changes). There are methods to modify and manipulate the currentFolder.
  */
@@ -15,7 +17,7 @@ export class FileSystem {
         rootFolder.children.push(new DirectoryTree("var", rootFolder));
         rootFolder.children.push(new DirectoryTree("etc", rootFolder));
         rootFolder.children.push(new DirectoryTree("temp", rootFolder));
-
+        rootFolder.searchDirectory('bin')?.addFile(new File("dummy", () => 'sex'));
         return rootFolder;
     }
     
@@ -82,10 +84,12 @@ export class DirectoryTree {
     folderName: string;
     parent : DirectoryTree | undefined;
     children : DirectoryTree[] = [];
+    files : File[];
 
     constructor(folderName: string, parent : DirectoryTree | undefined = undefined) {
         this.folderName = folderName;
         this.parent = parent;
+        this.files = [];
     }
 
     /**
@@ -129,6 +133,10 @@ export class DirectoryTree {
             if(dir.folderName === folder) return dir;
         }
         return undefined;
+    }
+
+    addFile(file : File) {
+        this.files.push(file);
     }
 
 }
