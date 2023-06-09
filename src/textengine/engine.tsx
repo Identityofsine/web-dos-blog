@@ -27,11 +27,13 @@ export namespace TextEngine{
         }
 
         private _createHeaderElement(text : string) : React.JSX.Element {
-            return (<h2>{text}</h2>)
+            const _text = text.replaceAll('#', '');
+            return (<h2>{_text}</h2>)
         }
 
         private craftElement() : React.JSX.Element {
-            const _lines = this._default_text.split('\r\n');
+            const _lines = this._default_text.split(/\r?\n/);
+            console.log(_lines);
             const _elements : React.JSX.Element[] = [];
             for(let _line of _lines) {
                 if(_line.charAt(0) === '#')
@@ -40,10 +42,9 @@ export namespace TextEngine{
                     _elements.push(this._createTextElement(_line));
             }
 
-
             return (
                 <>
-                    {_elements.map((e, i) => (e))}
+                    {_elements.map((e, i) => (<>{e}<br/></>))}
                 </>
             );
         }

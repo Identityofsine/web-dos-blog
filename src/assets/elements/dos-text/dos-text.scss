@@ -3,11 +3,18 @@
 
 .dos-text{
     width: fit-content;
+    font-family: "DOS";
+    color:white;
+    font-size: 2vw;
     span{
         font-family: "DOS";
-        color: white;
-        font-size: 2vw;
+        font-size: 1em;
         white-space: pre-wrap;
 
+    }
+    h2{
+        font-size: 1.5em;
+        font-weight: 300;
+        margin: .25em 0;
     }
 }
