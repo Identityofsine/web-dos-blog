@@ -11,7 +11,7 @@ export default function DEFAULT_COMMANDS(root : FileSystem) {
       if(!_found_arg || !_found_arg.content) return "ERROR: No arguments";
       const _cd_result = root.changeDirectory(_found_arg.content[0]);
       if(_cd_result) return `Current Directory: ${root.currentFolder.returnPath()}`;
-        
+
       return "ERROR: Path not found!";
     }));
 

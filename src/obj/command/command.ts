@@ -79,7 +79,11 @@ export class Command {
         listener_copy.name = listener.name.toLocaleLowerCase();
         this._listenerFunctions.push(listener_copy);
     }
-    call(args : ArgumentInput[] | undefined):string {this.runListeners(); return this._function(args);}
+    call(args : ArgumentInput[] | undefined):string {
+        const _returnValue = this._function(args);
+        this.runListeners(); 
+        return _returnValue;
+    }
 }
 
 
@@ -128,6 +132,7 @@ export class CommandList {
             if(command.getName().toLocaleLowerCase() === _command_name)
                 {
                     //add listener to command
+                    command.addListener(listener);
                     return;
                 }
         }

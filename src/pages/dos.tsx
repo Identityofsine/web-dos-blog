@@ -15,7 +15,7 @@ import { FileSystem } from '../obj/directorytree/Directory';
  */
 function DosPage() {
 
-    const [curDirectory, setCurrentDirectory] = useState("C:\\>");
+    const [curDirectory, setCurrentDirectory] = useState("C:/>");
     const [oldCommands, setOldCommands] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
     const root = new FileSystem();
@@ -36,6 +36,10 @@ function DosPage() {
 
             return outputstring;
         });
+        CommandList.addCommandListener("cd", {name: "changedir", function: () => {
+            const responseValue = root.getCurrentPath();
+            setCurrentDirectory(`C:${responseValue.substring(0, responseValue.length - 1)}>`);
+        }});
     }
 
     useEffect(() => {
