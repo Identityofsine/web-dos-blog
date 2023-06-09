@@ -3,6 +3,7 @@ import './dos.scss';
 import DosText from '../assets/elements/dos-text/dos-text';
 import DosCurrentLine from '../assets/elements/dos-currentline/dos-currentline';
 import handleCommand, { Command, CommandList } from '../obj/command/command';
+import { DirectoryContext } from '../context/context';
 
 
 
@@ -76,14 +77,16 @@ function DosPage() {
 
 
     return (
-        <div className='dos-command-page' ref={ref as React.RefObject<HTMLDivElement>}>
-            <div className='dos-command-container'>
-                {oldCommands.map(d => (
-                    <DosText text={d} color='white' />
-                ))}
-                <DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} />
+        <DirectoryContext.Provider value={{state:curDirectory, setState:setCurrentDirectory}}>
+            <div className='dos-command-page' ref={ref as React.RefObject<HTMLDivElement>}>
+                <div className='dos-command-container'>
+                    {oldCommands.map(d => (
+                        <DosText text={d} color='white' />
+                    ))}
+                    <DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} />
+                </div>
             </div>
-        </div>
+        </DirectoryContext.Provider>
     )
 }
 
