@@ -1,4 +1,4 @@
-import { fillerTextOne } from "../../debug/STATIC_TEXT.js";
+import { fillerTextOne, fillerTextThree, fillerTextTwo } from "../../debug/STATIC_TEXT.js";
 import { File } from "./File.ts";
 
 /**
@@ -22,7 +22,9 @@ export class FileSystem {
         rootFolder.children.push(homeFolder);
         homeFolder.children.push(new DirectoryTree("blogs", homeFolder));
 
-        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile", () => fillerTextOne));
+        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile1", () => fillerTextOne));
+        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile2", () => fillerTextTwo));
+        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile3", () => fillerTextThree));
         rootFolder.searchDirectory('bin')?.addFile(new File("dummy", () => 'sex'));
         return rootFolder;
     }
