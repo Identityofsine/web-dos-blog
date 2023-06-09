@@ -49,8 +49,7 @@ function DosPage() {
     const onEnterDos = (command: string) => {
         const _mutated_command = command.trim().split(/\s+/);
         const _real_command = _mutated_command[0].trim();
-        console.log(_mutated_command);
-        const pushCommandToStack = (_command: string, stack: any[]) => {
+            const pushCommandToStack = (_command: string, stack: any[]) => {
             var temp = [...stack];
             if (temp.at(temp.length - 1) === _command)
                 return stack;
