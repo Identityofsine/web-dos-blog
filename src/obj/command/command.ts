@@ -31,6 +31,16 @@ export interface ArgumentInput {
     content: string[] | undefined;
 }
 
+
+/**
+ * Listener for Commands
+ */
+export interface CommandListener {
+    name: string,
+    function: () => void,
+}
+
+
 /**
  * This class is used to contain command properties and methods to easily allow access and mutation to the commands and their behavior. This allows the commands to be easily added into the CommandList 
  */
@@ -39,7 +49,7 @@ export class Command {
     private _arguments: Argument[];
     private _description: string;
     private _function: (args : ArgumentInput[] | undefined) => string;
-
+    private _listenerFunctions: (CommandListener)[] = [];
     /**
      * 
      * @param {string} name Name of Command
@@ -58,8 +68,18 @@ export class Command {
 
     getDescription(): string { return this._description;}
     getName(): string { return this._name};
-    call(args : ArgumentInput[] | undefined):string {return this._function(args);}
     overrideCall(_newfunc: () => string) {this._function = _newfunc;}
+    runListeners() {
+        for(let listener of this._listenerFunctions) {
+            listener.function();
+        }
+    }
+    addListener(listener: (CommandListener)) {
+        let listener_copy = {...listener};
+        listener_copy.name = listener.name.toLocaleLowerCase();
+        this._listenerFunctions.push(listener_copy);
+    }
+    call(args : ArgumentInput[] | undefined):string {this.runListeners(); return this._function(args);}
 }
 
 
@@ -100,6 +120,17 @@ export class CommandList {
 
     public static getAllCommands():Command[] {
         return this._commands;
+    }
+
+    public static addCommandListener(commandName : string, listener : CommandListener) {
+        const _command_name = commandName.toLocaleLowerCase();
+        for(const command of this._commands) {
+            if(command.getName().toLocaleLowerCase() === _command_name)
+                {
+                    //add listener to command
+                    return;
+                }
+        }
     }
 }
 
