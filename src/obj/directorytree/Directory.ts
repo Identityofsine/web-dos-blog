@@ -17,6 +17,11 @@ export class FileSystem {
         rootFolder.children.push(new DirectoryTree("var", rootFolder));
         rootFolder.children.push(new DirectoryTree("etc", rootFolder));
         rootFolder.children.push(new DirectoryTree("temp", rootFolder));
+        const homeFolder = new DirectoryTree("home", rootFolder);
+        rootFolder.children.push(homeFolder);
+        homeFolder.children.push(new DirectoryTree("blogs"), homeFolder);
+
+        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile", () => ""));
         rootFolder.searchDirectory('bin')?.addFile(new File("dummy", () => 'sex'));
         return rootFolder;
     }
