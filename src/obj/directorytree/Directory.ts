@@ -1,3 +1,4 @@
+import { fillerTextOne } from "../../debug/STATIC_TEXT.js";
 import { File } from "./File.ts";
 
 /**
@@ -21,7 +22,7 @@ export class FileSystem {
         rootFolder.children.push(homeFolder);
         homeFolder.children.push(new DirectoryTree("blogs", homeFolder));
 
-        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile", () => ""));
+        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile", () => fillerTextOne));
         rootFolder.searchDirectory('bin')?.addFile(new File("dummy", () => 'sex'));
         return rootFolder;
     }
