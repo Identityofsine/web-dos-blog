@@ -6,6 +6,7 @@ import handleCommand, { Command, CommandList } from '../obj/command/command';
 import { DirectoryContext } from '../context/context';
 import DEFAULT_COMMANDS from '../obj/command/_default_commands';
 import { FileSystem } from '../obj/directorytree/Directory';
+import { File } from '../obj/directorytree/File';
 
 
 
@@ -18,7 +19,7 @@ function DosPage() {
     const [curDirectory, setCurrentDirectory] = useState("C:/>");
     const [oldCommands, setOldCommands] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
-    const root = new FileSystem();
+    const [root, setRoot] = useState(new FileSystem());
 
     /**
      * @summary Simple function that creates and assigns commands their functions...
@@ -78,8 +79,22 @@ function DosPage() {
         }
         const _args_passthrough = _mutated_command.splice(1, _mutated_command.length - 1);
         setCMDState(command);
-        handleCommand([_real_command], _args_passthrough, (_command: string) => setCMDState(_command));
-
+        const _command_response = handleCommand([_real_command], _args_passthrough, (_command: string) => setCMDState(_command));
+        if(_command_response) return '';
+        else {
+            // TODO: handle files in the directory
+            let does_file_exist : File | undefined;
+            if(command.slice(0 , 2) == './')
+                does_file_exist = root.currentFolder.getFile(command.slice(2, command.length));
+            else
+                does_file_exist = root.currentFolder.getFile(command);
+            if (does_file_exist) {
+                setCMDState(does_file_exist.call());
+            } else {
+                setCMDState(`'${command}' is not recognized as an internal or external command,
+                operable program or batch file.`);    
+            }
+        }
         return '';
     }
 

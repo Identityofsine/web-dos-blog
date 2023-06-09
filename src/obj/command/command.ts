@@ -186,7 +186,6 @@ export default function handleCommand(command: string[], args : string[] = [], p
         return true;
     }
     // printFunction('sex');
-    printFunction(`'${command[0]}' is not recognized as an internal or external command,
-    operable program or batch file.`);    
+
     return false;
 }

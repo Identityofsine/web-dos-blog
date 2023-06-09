@@ -119,10 +119,14 @@ export class DirectoryTree {
     listChildren() : string[] {
         const childPaths : string[] = [];
         for(let dir of this.children) {
-            childPaths.push(dir.returnPath());
+            childPaths.push(`DIR - ${dir.folderName}`);
+        }
+        for (let file of this.files) {
+            childPaths.push(`FILE - ${file.getName()}`)
         }
         return childPaths;
     }
+
     /**
      * 
      * @param {string} folder This is the folder/file the function is looking for
@@ -135,8 +139,22 @@ export class DirectoryTree {
         return undefined;
     }
 
+    /**
+     * 
+     * @param {File} file adds a file object (directorytree) to the directory. 
+     */
     addFile(file : File) {
         this.files.push(file);
+    }
+    /**
+     * @summary Searches for a file in the directory tree, if not found returns undefined.
+     * @param name string Name
+     * @returns {File | undefined} Returns foundFile if found, otherwise returns undefined
+     */
+    getFile(name : string) : File | undefined {
+        console.log("filename : %s", name);
+        const foundFile = this.files.find(file => file.getName().toLocaleLowerCase() === name.toLocaleLowerCase());
+        return foundFile;
     }
 
 }

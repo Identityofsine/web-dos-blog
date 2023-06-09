@@ -2,6 +2,9 @@ import { FileSystem } from "../directorytree/Directory";
 import { Argument, ArgumentInput, Command, CommandList } from "./command";
 
 export default function DEFAULT_COMMANDS(root : FileSystem) {
+
+    CommandList.addCommand(new Command('', '', [], () => ""));
+
     CommandList.addCommand(new Command('hw', 'Prints out Hello World!', [], () => "Hello World!"));
 
     CommandList.addCommand(new Command('cd', 'Changed current directory', [new Argument('', 1, true, (path) => {return path.length > 0})], (args : ArgumentInput[] | undefined) => {

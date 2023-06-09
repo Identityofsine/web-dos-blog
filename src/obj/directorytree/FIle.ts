@@ -1,8 +1,8 @@
 export class File {
     private _name: string;
-    private _onRun: () => void;
+    private _onRun: () => string;
 
-    constructor(name: string, onRun: () => void) {
+    constructor(name: string, onRun: () => string) {
         this._name = name;
         this._onRun = onRun;
     }
@@ -11,7 +11,7 @@ export class File {
      * @summary calls the private onRun Function
      * @returns {void} onRun Function
      */
-    public call() {
+    public call() : string {
         return this._onRun();
     }
 
