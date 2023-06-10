@@ -1,5 +1,5 @@
 import { fillerTextOne, fillerTextThree, fillerTextTwo } from "../../debug/STATIC_TEXT.js";
-import { File } from "./File.ts";
+import { File } from "./File";
 
 /**
  * This class acts as a Drive for the emulated device. When instantiated, this object acts as a root directory; it keeps track of the currentFolder and the rootFolder (which never changes). There are methods to modify and manipulate the currentFolder.
@@ -22,7 +22,7 @@ export class FileSystem {
         rootFolder.children.push(homeFolder);
         homeFolder.children.push(new DirectoryTree("blogs", homeFolder));
 
-        homeFolder.searchDirectory('blogs')?.addFile(new File("titletest", () => `#TITLE\n##FUCK\n${fillerTextThree}\n`));
+        homeFolder.searchDirectory('blogs')?.addFile(new File("titletest", () => `#TITLE\n##FUCK\n>kevin's sex tips now 14 bucks\n${fillerTextThree}\n`));
         homeFolder.searchDirectory('blogs')?.addFile(new File("testfile1", () => fillerTextOne));
         homeFolder.searchDirectory('blogs')?.addFile(new File("testfile2", () => fillerTextTwo));
         homeFolder.searchDirectory('blogs')?.addFile(new File("testfile3", () => fillerTextThree));
