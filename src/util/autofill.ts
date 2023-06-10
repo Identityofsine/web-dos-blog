@@ -1,5 +1,12 @@
 import { DirectoryTree, FileSystem } from "../obj/directorytree/Directory";
 
+/**
+ * 
+ * @param {string} progress the string before progress
+ * @param {React.Dispatch<React.SetStateAction<string>>} setString setState function. 
+ * @param {DirectoryTree | undefined } folder folder structure.
+ * @returns 
+ */
 export function autoFill(progress : string, setString : React.Dispatch<React.SetStateAction<string>>, folder : DirectoryTree | undefined) {
     if(folder === undefined) return;
 
