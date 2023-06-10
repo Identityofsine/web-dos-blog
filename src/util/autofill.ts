@@ -16,7 +16,6 @@ export function autoFill(progress : string, setString : React.Dispatch<React.Set
     if(_closest.trim() === "") return;
     splitWord.pop();
     splitWord.push(_closest);
-    console.log(splitWord);
     setString(splitWord.join(' '));
 
     return;
