@@ -26,7 +26,9 @@ function DosPage() {
      */
     const commandConfigs = () => {
         CommandList.getCommand("help")?.overrideCall(() => {
-            var outputstring = "";
+            var outputstring = "#HELP MENU\n";
+            outputstring += "Welcome to build ??? of the web-dos project, this project aims to provide a template for web-dos applications (for those who want to take advantage of the primitive terminal for projects in design or games).\n\nThese are commands that are baked into the application, more can be added on startup (~/pages/dos.tsx). As of build ???, a lot of these commands do not work and some may never will be made.\n"
+            
             outputstring += "=#=#=#=#=#=#=#=DOS-WEB-DEFAULT HELP=#=#=#=#=#=#=#=\n";
             const commands = CommandList.getAllCommands();
             for(let i = 0; i < commands.length; i++) {
@@ -78,7 +80,7 @@ function DosPage() {
             });
         }
         const _args_passthrough = _mutated_command.splice(1, _mutated_command.length - 1);
-        setCMDState(command);
+        setCMDState(command + '\n');
         const _command_response = handleCommand([_real_command], _args_passthrough, (_command: string) => setCMDState(_command));
         if(_command_response) return '';
         else {

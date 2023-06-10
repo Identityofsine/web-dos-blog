@@ -1,4 +1,4 @@
-import { fillerTextOne, fillerTextThree, fillerTextTwo } from "../../debug/STATIC_TEXT.js";
+import { fillerTextOne, fillerTextThree, fillerTextTwo, markdownexample } from "../../debug/STATIC_TEXT.js";
 import { File } from "./File";
 
 /**
@@ -23,6 +23,7 @@ export class FileSystem {
         homeFolder.children.push(new DirectoryTree("blogs", homeFolder));
 
         homeFolder.searchDirectory('blogs')?.addFile(new File("titletest", () => `#TITLE\n##FUCK\n>kevin's sex tips now 14 bucks\n${fillerTextThree}\n`));
+        homeFolder.searchDirectory('blogs')?.addFile(new File("readme", () => markdownexample));
         homeFolder.searchDirectory('blogs')?.addFile(new File("testfile1", () => fillerTextOne));
         homeFolder.searchDirectory('blogs')?.addFile(new File("testfile2", () => fillerTextTwo));
         homeFolder.searchDirectory('blogs')?.addFile(new File("testfile3", () => fillerTextThree));

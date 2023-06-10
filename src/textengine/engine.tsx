@@ -23,7 +23,7 @@ export namespace TextEngine {
         // Private method to create a quote element
         private _createQuoteElement(text: string): React.JSX.Element {
             const _text = text.replace('>', ''); // just replace one quote method
-            return (<span style={{opacity:.6}}>{_text}</span>);
+            return (<span style={{opacity:.6, fontSize:'.8em'}}>{_text}</span>);
         }
 
         // Private method to create a text element
