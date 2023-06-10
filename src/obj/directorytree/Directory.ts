@@ -88,7 +88,9 @@ export class FileSystem {
 
 }
 
-
+/**
+ * This class is basically a directory, it hold children(both folders and files) and it keeps note of it's parent; this allows the Directory to pwd(print out current directory).
+ */
 export class DirectoryTree {
     //children of the tree
     folderName: string;
