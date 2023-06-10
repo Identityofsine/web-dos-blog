@@ -50,7 +50,6 @@ export class FileSystem {
                 let pointer : DirectoryTree | undefined = this.rootFolder;
                 for(let i = 0; i < split.length; i++) {
                     if(pointer === undefined) return false;
-                    console.log("pointer : ", pointer);
                     const _temp_pointer = pointer;
                     pointer = pointer.searchDirectory(split[i]);
                     if(pointer)
@@ -164,9 +163,17 @@ export class DirectoryTree {
      * @returns {File | undefined} Returns foundFile if found, otherwise returns undefined
      */
     getFile(name : string) : File | undefined {
-        console.log("filename : %s", name);
+        // console.log("filename : %s", name);
         const foundFile = this.files.find(file => file.getName().toLocaleLowerCase() === name.toLocaleLowerCase());
         return foundFile;
+    }
+
+    closestItem (name : string) : string { 
+        const closetDirectory = this.children.find(dir => dir.folderName.match(name));
+        const closetFile = this.files.find(file => file.getName().match(name));
+        if(closetFile) return closetFile.getName();
+        if(closetDirectory) return closetDirectory.folderName;
+        return "";
     }
 
 }

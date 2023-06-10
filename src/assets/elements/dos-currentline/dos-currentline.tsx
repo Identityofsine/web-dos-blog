@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DosText from "../dos-text/dos-text";
 import "./dos-currentline.scss"
+import { autoFill } from "../../../util/autofill";
+import { FileSystemContext } from "../../../context/context";
 
 type DosCurrentLineProps = {
     text: string,
@@ -18,7 +20,7 @@ type DosCurrentLineProps = {
 function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps) {
     
     const [keyboardinput, setKeyboardInput] = useState("");
-
+    const root = useContext(FileSystemContext);
     useEffect(() => {
         //this function handles on keydown events
         const handleKeyDown = (ev : KeyboardEvent) => {
@@ -32,8 +34,8 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
                     // Exclude Alt, Ctrl, Shift, and Meta keys
                     return;
                 case "Tab":
-                    // autofill code
                     //TODO :: WRITE TAB HANDLING CODE (AUTO COMPLETION)
+                    autoFill(keyboardinput, setKeyboardInput, root.state?.currentFolder);
                     ev.preventDefault();
                     return;
                 default:
