@@ -27,6 +27,7 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
                 case "Alt":
                 case "Control":
                 case "Shift":
+                case "Escape":
                 case "Meta":
                     // Exclude Alt, Ctrl, Shift, and Meta keys
                     return;
