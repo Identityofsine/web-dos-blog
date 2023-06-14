@@ -12,6 +12,14 @@
         font-size: 1em;
         white-space: pre-wrap;
 				&.dos-quote-block{
+					opacity: .6;
+					font-size: .7em;
+					&::before{
+						content: '"';
+					}
+					&::after{
+						content: '"';
+					}
 				}
     }
 

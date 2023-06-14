@@ -53,6 +53,10 @@ export namespace TextEngine {
 				console.log(line[i]);
 				const _cur_char = line.charAt(i);
 				let _isHit = false;
+				if(_cur_char === '\n') {
+					_elements.push((<br/>))
+					continue;
+				}
 				for(let t = 0; t < _types.length; t++) {
 					if(_cur_char === _types[t]) {
 						if(_type_status.get(_types[t])) {
@@ -104,6 +108,7 @@ export namespace TextEngine {
 					// _elements.push(this._createTextElement(_line));
 					const _element_array = this.analyzeLine(_line);
 					_element_array.forEach((elem) => _elements.push(elem));
+					_elements.push((<br/>))
 				}
 			}
 			
@@ -113,7 +118,6 @@ export namespace TextEngine {
 				{_elements.map((e, i) => (
 					<React.Fragment key={i}>
 					{e}
-					{/* <br/> */}
 					</React.Fragment>
 					))}
 					</>
