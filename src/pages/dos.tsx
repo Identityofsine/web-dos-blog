@@ -58,6 +58,10 @@ function DosPage() {
             ref.current.scrollTop = ref.current.scrollHeight;
     }, [oldCommands])
 
+		useEffect(() => {
+			document.title = curDirectory;
+		}, [curDirectory]);
+
     //onenter function passed into DosCurrentLine
     const onEnterDos = (command: string) => {
         const _mutated_command = command.trim().split(/\s+/);
