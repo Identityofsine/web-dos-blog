@@ -14,20 +14,12 @@ export class FileSystem {
 
     private initRootFolder() : DirectoryTree {
         const rootFolder = new DirectoryTree("");
-        rootFolder.children.push(new DirectoryTree("bin", rootFolder));
-        rootFolder.children.push(new DirectoryTree("var", rootFolder));
-        rootFolder.children.push(new DirectoryTree("etc", rootFolder));
-        rootFolder.children.push(new DirectoryTree("temp", rootFolder));
         const homeFolder = new DirectoryTree("home", rootFolder);
         rootFolder.children.push(homeFolder);
         homeFolder.children.push(new DirectoryTree("blogs", homeFolder));
+        homeFolder.children.push(new DirectoryTree("blogs_old", homeFolder));
 
-        homeFolder.searchDirectory('blogs')?.addFile(new File("titletest", () => `#TITLE\n##FUCK\n>kevin's sex tips now 14 bucks\n${fillerTextThree}\n`));
-        homeFolder.searchDirectory('blogs')?.addFile(new File("readme", () => markdownexample));
-        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile1", () => fillerTextOne));
-        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile2", () => fillerTextTwo));
-        homeFolder.searchDirectory('blogs')?.addFile(new File("testfile3", () => fillerTextThree));
-        rootFolder.searchDirectory('bin')?.addFile(new File("dummy", () => 'sex'));
+
         return rootFolder;
     }
     

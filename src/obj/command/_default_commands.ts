@@ -4,9 +4,6 @@ import { Argument, ArgumentInput, Command, CommandList } from "./command";
 export default function DEFAULT_COMMANDS(root : FileSystem) {
 
     CommandList.addCommand(new Command('', '', [], () => ""));
-
-    CommandList.addCommand(new Command('hw', 'Prints out Hello World!', [], () => "Hello World!"));
-
     CommandList.addCommand(new Command('cd', 'Changed current directory', [new Argument('', 1, true, (path) => {return path.length > 0})], (args : ArgumentInput[] | undefined) => {
 
       if(!args || args.length <= 0) return "ERROR: No arguments";
@@ -27,6 +24,5 @@ export default function DEFAULT_COMMANDS(root : FileSystem) {
       return returnString;
     }));
 
-    CommandList.addCommand(new Command('vim', 'VIM Editor (Probably will never work)', [], () => "ERROR: Function not implemented!"));
     CommandList.addCommand(new Command('help', 'Prints out a table of commands', [], () => "ERROR: Function not implemented!"));
 }
