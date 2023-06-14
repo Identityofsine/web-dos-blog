@@ -6,6 +6,8 @@ div.dos-command-page{
     align-items: flex-start;
     overflow: auto;
 
+		scrollbar-width: none; /* Firefox 64 */
+		-ms-overflow-style: none; /* IE 11 */
     &::-webkit-scrollbar{
         display: none;
     }
