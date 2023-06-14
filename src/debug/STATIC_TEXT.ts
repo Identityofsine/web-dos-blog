@@ -11,6 +11,16 @@ export const markdownexample = `
 ##What is this?
 \n
 This is an example for the *Markdown Engine*. This engine allows the developer to pass a string through with certian styling and syntax to get a desired effect for the printed message.
+
+As of now, the *Markdown Engine* is almost done and also efficient. There is a decent amount sorted such as:
+- # and ## (in the future all the #s will be added)
+- >
+- *
+- \`
+
+*The engine doesn't have everything, but I am trying to add more to it as fast as possible.*
+
+
 \n
 ##Whats the use case?
 \n
@@ -18,7 +28,7 @@ Personally this project will be converted into a blog, where I can post certian 
 \n
 I imagine that many people will not \`understand\` how to navigate through this website, its a terminal and many people aren't familiar with terminals. But so be it, I created an exclusive platform.
 \n
->Although this repo. may be used for things like text-based games or other projects.
+>TLDR; a base for DOS-themed web projects
 \n
 
 `;

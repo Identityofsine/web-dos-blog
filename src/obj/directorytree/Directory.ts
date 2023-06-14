@@ -72,15 +72,17 @@ export class FileSystem {
         }
         if(path === '.' || path === './') return true;
 				const _path_split = path.split('/');
+				let _temp_currentFolder = this.currentFolder;
 				for(let _potential_path of _path_split){
 					const foundDIR = this.currentFolder.searchDirectory(_potential_path);
 					if(foundDIR) {
 							const _temp = this.currentFolder;
 							foundDIR.parent = _temp;
-							this.currentFolder = foundDIR;
+							_temp_currentFolder = foundDIR;
 					} else return false;
 				}
 				if(_path_split.length === 0) return false;
+				this.currentFolder = _temp_currentFolder;
 				return true;
 
     }
