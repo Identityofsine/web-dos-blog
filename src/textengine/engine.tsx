@@ -55,7 +55,6 @@ export namespace TextEngine {
 			const _elements : JSX.Element[] = [];
 			let _current_string = "";
 			for(let i = 0; i < line.length; i++) {
-				console.log(line[i]);
 				const _cur_char = line.charAt(i);
 				let _isHit = false;
 				if(_cur_char === '\n') {
