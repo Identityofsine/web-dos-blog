@@ -7,18 +7,28 @@ export const fillerTextFour : string = "Phasellus ultrices massa a tristique viv
 
 export const markdownexample = `
 #Example Markdown
-
+\n
 ##What is this?
+\n
+This is an example for the *Markdown Engine*. This engine allows the developer to pass a string through with certian styling and syntax to get a desired effect for the printed message.
 
-This is an example for the Markdown Engine. This engine allows the developer to pass a string through with certian styling and syntax to get a desired effect for the printed message.
+As of now, the *Markdown Engine* is almost done and also efficient. There is a decent amount sorted such as:
+- # and ## (in the future all the #s will be added)
+- >
+- *
+- \`
 
+*The engine doesn't have everything, but I am trying to add more to it as fast as possible.*
+
+
+\n
 ##Whats the use case?
-
+\n
 Personally this project will be converted into a blog, where I can post certian things about what not and useless information. I also want to be able to make something boujee, that only serious engineers can appericate (and get around).
-
-I imagine that many people will not understand how to navigate through this website, its a terminal and many people aren't familiar with terminals. But so be it, I created an exclusive platform.
-
->Although this repo. may be used for things like text-based games or other projects.
-
+\n
+I imagine that many people will not \`understand\` how to navigate through this website, its a terminal and many people aren't familiar with terminals. But so be it, I created an exclusive platform.
+\n
+>TLDR; a base for DOS-themed web projects
+\n
 
 `;

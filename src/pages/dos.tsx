@@ -27,12 +27,13 @@ function DosPage() {
     const commandConfigs = () => {
         CommandList.getCommand("help")?.overrideCall(() => {
             var outputstring = "#HELP MENU\n";
-            outputstring += "Welcome to build ??? of the web-dos project, this project aims to provide a template for web-dos applications (for those who want to take advantage of the primitive terminal for projects in design or games).\n\nThese are commands that are baked into the application, more can be added on startup (~/pages/dos.tsx). As of build ???, a lot of these commands do not work and some may never will be made.\n\n##D.I.Y Example\nTo see the text-engine demo, run:\n>cd /home/blogs\nTake a look around by typing:\n>ls\nTo run a file type in its name and press enter!\n\n"
+            outputstring += "Welcome to build ??? of the web-dos project, this project aims to provide a template for web-dos applications (for those who want to take advantage of the primitive terminal for projects in design or games).\n\nThese are commands that are baked into the application, more can be added on startup (~/pages/dos.tsx). As of build ???, a lot of these commands do not work and some may never will be made.\n\n##D.I.Y Example\nTo see the text-engine demo, run:\n`cd /home/blogs`\n\nTake a look around by typing:\n>ls \n\n\nTo run a file type in its name and press enter!\n\n"
             
             outputstring += "=#=#=#=#=#=#=#=DOS-WEB-DEFAULT HELP=#=#=#=#=#=#=#=\n";
             const commands = CommandList.getAllCommands();
             for(let i = 0; i < commands.length; i++) {
                 const cmd : Command = commands[i];
+								if(cmd.getName().trim() === '') continue;
                 outputstring += `${cmd.getName()} - ${cmd.getDescription()}\n`;
             }
             outputstring += "=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#==#=#=#=#=#=#=#=\n";

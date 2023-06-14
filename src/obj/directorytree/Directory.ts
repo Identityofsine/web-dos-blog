@@ -71,14 +71,20 @@ export class FileSystem {
             return true;
         }
         if(path === '.' || path === './') return true;
-        const foundDIR = this.currentFolder.searchDirectory(path);
-        if(foundDIR) {
-            const _temp = this.currentFolder;
-            foundDIR.parent = _temp;
-            this.currentFolder = foundDIR;
-            return true;
-        } else
-            return false;
+				const _path_split = path.split('/');
+				let _temp_currentFolder = this.currentFolder;
+				for(let _potential_path of _path_split){
+					const foundDIR = this.currentFolder.searchDirectory(_potential_path);
+					if(foundDIR) {
+							const _temp = this.currentFolder;
+							foundDIR.parent = _temp;
+							_temp_currentFolder = foundDIR;
+					} else return false;
+				}
+				if(_path_split.length === 0) return false;
+				this.currentFolder = _temp_currentFolder;
+				return true;
+
     }
 
     getCurrentPath() : string {
@@ -130,10 +136,10 @@ export class DirectoryTree {
     listChildren() : string[] {
         const childPaths : string[] = [];
         for(let dir of this.children) {
-            childPaths.push(`DIR - ${dir.folderName}`);
+            childPaths.push(`*DIR* - ${dir.folderName}`);
         }
         for (let file of this.files) {
-            childPaths.push(`FILE - ${file.getName()}`)
+            childPaths.push(`*FILE* - ${file.getName()}`)
         }
         return childPaths;
     }

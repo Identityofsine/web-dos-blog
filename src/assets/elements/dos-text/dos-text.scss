@@ -7,10 +7,29 @@
     color:white;
     font-size: 2vw;
     span{
+				display: inline;
         font-family: "DOS";
         font-size: 1em;
         white-space: pre-wrap;
-
+				&.dos-\`{
+					opacity: .6;
+					font-size: .7em;
+					&::before{
+						content: '"';
+					}
+					&::after{
+						content: '"';
+					}
+				}
+				&.dos-\*{
+					opacity: 1;
+					font-size: 1em;
+					font-style: italic;
+				}
+				&.dos-\*\*{
+					opacity: 1;
+					font-size: 1.2em;
+				}
     }
 
     h2{

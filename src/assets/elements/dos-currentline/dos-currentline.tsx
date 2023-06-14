@@ -78,7 +78,7 @@ function DosCurrentLine({text, onEnter = (command) => "" } : DosCurrentLineProps
     return(
         <div className='dos-current-line'>
             <DosText text={text}/> 
-            <DosText text={keyboardinput}/>
+            <DosText text={keyboardinput} disableTextEngine={true}/>
             <span className='blinker'>_</span>
         </div>
     )
