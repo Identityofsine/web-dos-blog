@@ -1,0 +1,47 @@
+@import url("../../fonts/dos/dos.scss");
+
+
+.dos-text{
+    width: fit-content;
+    font-family: "DOS";
+    color:white;
+    font-size: 2vw;
+    span{
+				display: inline;
+        font-family: "DOS";
+        font-size: 1em;
+        white-space: pre-wrap;
+				&.dos-\`{
+					opacity: .6;
+					font-size: .7em;
+					&::before{
+						content: '"';
+					}
+					&::after{
+						content: '"';
+					}
+				}
+				&.dos-\*{
+					opacity: 1;
+					font-size: 1em;
+					font-style: italic;
+				}
+				&.dos-\*\*{
+					opacity: 1;
+					font-size: 1.2em;
+				}
+    }
+
+    h2{
+        font-size: 2em;
+        font-weight: 300;
+        margin: 0;
+
+    }
+
+    h3{
+        font-size: 1.5em;
+        font-weight: 300;
+        margin: 0;
+    }
+}
