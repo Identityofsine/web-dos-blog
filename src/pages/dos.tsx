@@ -33,6 +33,7 @@ function DosPage() {
             const commands = CommandList.getAllCommands();
             for(let i = 0; i < commands.length; i++) {
                 const cmd : Command = commands[i];
+								if(cmd.getName().trim() === '') continue;
                 outputstring += `${cmd.getName()} - ${cmd.getDescription()}\n`;
             }
             outputstring += "=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#==#=#=#=#=#=#=#=\n";
