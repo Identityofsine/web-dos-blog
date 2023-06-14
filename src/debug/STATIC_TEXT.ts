@@ -10,7 +10,7 @@ export const markdownexample = `
 \n
 ##What is this?
 \n
-This is an example for the Markdown Engine. This engine allows the developer to pass a string through with certian styling and syntax to get a desired effect for the printed message.
+This is an example for the *Markdown Engine*. This engine allows the developer to pass a string through with certian styling and syntax to get a desired effect for the printed message.
 \n
 ##Whats the use case?
 \n

@@ -11,7 +11,7 @@
         font-family: "DOS";
         font-size: 1em;
         white-space: pre-wrap;
-				&.dos-quote-block{
+				&.dos-\`{
 					opacity: .6;
 					font-size: .7em;
 					&::before{
@@ -20,6 +20,15 @@
 					&::after{
 						content: '"';
 					}
+				}
+				&.dos-\*{
+					opacity: 1;
+					font-size: 1em;
+					font-style: italic;
+				}
+				&.dos-\*\*{
+					opacity: 1;
+					font-size: 1.2em;
 				}
     }
 

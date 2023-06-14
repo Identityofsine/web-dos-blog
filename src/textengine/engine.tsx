@@ -43,6 +43,11 @@ export namespace TextEngine {
 			return (<h2>{_text}</h2>);
 		}
 		
+		/**
+		 * @summary This function analyzes a line and returns a correct response.
+		 * @param {string} line 
+		 * @returns {React.JSX.Element[]} This returns a array of React Elements for the line.
+		 */
 		private analyzeLine(line: string) : React.JSX.Element[]  {
 			const _types = ['*', '**', '`'];
 			const _stack : string[] = [];
@@ -62,7 +67,7 @@ export namespace TextEngine {
 						if(_type_status.get(_types[t])) {
 							_stack.pop();
 							_type_status.set(_types[t], false);
-							_elements.push(<span className='dos-quote-block'>{_current_string.trim()}</span>)
+							_elements.push(<span className={`dos-${_types[t]}`}>{_current_string.trim()}</span>)
 							_current_string = "";
 						} 
 						else {
