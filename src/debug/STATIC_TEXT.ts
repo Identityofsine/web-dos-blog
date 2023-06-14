@@ -7,18 +7,18 @@ export const fillerTextFour : string = "Phasellus ultrices massa a tristique viv
 
 export const markdownexample = `
 #Example Markdown
-
+\n
 ##What is this?
-
+\n
 This is an example for the Markdown Engine. This engine allows the developer to pass a string through with certian styling and syntax to get a desired effect for the printed message.
-
+\n
 ##Whats the use case?
-
+\n
 Personally this project will be converted into a blog, where I can post certian things about what not and useless information. I also want to be able to make something boujee, that only serious engineers can appericate (and get around).
-
-I imagine that many people will not understand how to navigate through this website, its a terminal and many people aren't familiar with terminals. But so be it, I created an exclusive platform.
-
+\n
+I imagine that many people will not \`understand\` how to navigate through this website, its a terminal and many people aren't familiar with terminals. But so be it, I created an exclusive platform.
+\n
 >Although this repo. may be used for things like text-based games or other projects.
-
+\n
 
 `;

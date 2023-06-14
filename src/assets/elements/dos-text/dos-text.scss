@@ -7,10 +7,12 @@
     color:white;
     font-size: 2vw;
     span{
+				display: inline;
         font-family: "DOS";
         font-size: 1em;
         white-space: pre-wrap;
-
+				&.dos-quote-block{
+				}
     }
 
     h2{

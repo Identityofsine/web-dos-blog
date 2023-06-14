@@ -58,7 +58,8 @@ export namespace TextEngine {
 						if(_type_status.get(_types[t])) {
 							_stack.pop();
 							_type_status.set(_types[t], false);
-							_elements.push(<span className='dos-quote-block'>{_current_string}</span>)
+							_elements.push(<span className='dos-quote-block'>{_current_string.trim()}</span>)
+							_current_string = "";
 						} 
 						else {
 							_stack.push(_cur_char);
@@ -102,7 +103,6 @@ export namespace TextEngine {
 					// If not a header, create a regular text element
 					// _elements.push(this._createTextElement(_line));
 					const _element_array = this.analyzeLine(_line);
-					console.log("DEBUG: ", _element_array);
 					_element_array.forEach((elem) => _elements.push(elem));
 				}
 			}
@@ -113,7 +113,7 @@ export namespace TextEngine {
 				{_elements.map((e, i) => (
 					<React.Fragment key={i}>
 					{e}
-					<br/>
+					{/* <br/> */}
 					</React.Fragment>
 					))}
 					</>
