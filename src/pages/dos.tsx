@@ -18,6 +18,7 @@ function DosPage() {
 
     const [curDirectory, setCurrentDirectory] = useState("C:/>");
     const [oldCommands, setOldCommands] = useState<string[]>([]);
+		const [usedCommands, setUsedCommands] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
     const [root, setRoot] = useState(new FileSystem());
 
@@ -77,7 +78,7 @@ function DosPage() {
             return temp;
         }
         pushCommandToStack(_real_command, oldCommands);
-
+				setUsedCommands((prev) => [...prev, command]);
         //set the state of the function
         const setCMDState = (_command: string) => {
             setOldCommands((preventry: any) => {
@@ -104,6 +105,19 @@ function DosPage() {
         }
         return '';
     }
+		
+		/**
+		 * 
+		 * @param {number} i iterate under.
+		 * @returns onArrowUp Function
+		 */
+		const onArrowUp = (i = 1) : string => {
+			const _return = usedCommands.at(usedCommands.length - i)
+			if(_return)
+				return _return;
+			else
+				return '';
+		};
 
 
     return (
@@ -114,7 +128,7 @@ function DosPage() {
                         {oldCommands.map(d => (
                             <DosText text={d} color='white' />
                         ))}
-                        <DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} />
+                        <DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} onArrowUp={onArrowUp} />
                     </div>
                 </div>
             </DirectoryContext.Provider>
