@@ -65,10 +65,12 @@ export class FileSystem {
         if(path === '.' || path === './') return true;
 				const _path_split = path.split('/');
 				let _temp_currentFolder = this.currentFolder;
+				console.log(_path_split);
+				let _temp : DirectoryTree;
 				for(let _potential_path of _path_split){
-					const foundDIR = this.currentFolder.searchDirectory(_potential_path);
+					const foundDIR = _temp_currentFolder.searchDirectory(_potential_path);
 					if(foundDIR) {
-							const _temp = this.currentFolder;
+							const _temp = _temp_currentFolder;
 							foundDIR.parent = _temp;
 							_temp_currentFolder = foundDIR;
 					} else return false;
