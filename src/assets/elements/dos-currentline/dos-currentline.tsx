@@ -8,6 +8,7 @@ type DosCurrentLineProps = {
 	text: string,
 	onEnter: (command : string) => string,
 	onArrowUp: (i : number) => string	,
+	arrowLimit: number,
 }
 
 
@@ -18,7 +19,7 @@ type DosCurrentLineProps = {
 * @param {(command) : string => {}} onEnterFunction this function will be called whenever the user presses enter on their keyboard. 
 * @returns DosCurrentLine Object
 */
-function DosCurrentLine({text, onEnter = (command) => "", onArrowUp = (i : number) => "" } : DosCurrentLineProps) {
+function DosCurrentLine({text, onEnter = (command) => "", onArrowUp = (i : number) => "", arrowLimit = 0} : DosCurrentLineProps) {
 	
 	const [keyboardinput, setKeyboardInput] = useState("");
 	const [_command_history_index, _set_command_history_index] = useState(1);
@@ -39,10 +40,26 @@ function DosCurrentLine({text, onEnter = (command) => "", onArrowUp = (i : numbe
 					return;
 				case "ArrowUp":
 					let _arrow_up_response = onArrowUp(_command_history_index);
-					_set_command_history_index((prev) => prev + 1);
+					_set_command_history_index((prev) => {
+						const _val = prev + 1;
+						if (_val >= arrowLimit)
+							return arrowLimit;
+						return _val;
+					});
 					if(!_arrow_up_response)
 						return;
 					setKeyboardInput(_arrow_up_response);
+					return;
+				case "ArrowDown":
+					_set_command_history_index((prev) => {
+						const _val = prev - 1;
+						if(_val < 2) return 2;
+						return _val;
+					});
+					let _arrow_down_response = onArrowUp(_command_history_index - 1);
+					if(!_arrow_down_response)
+						return;
+					setKeyboardInput(_arrow_down_response);
 					return;
 				case "Tab":
 					//TODO :: WRITE TAB HANDLING CODE (AUTO COMPLETION)
@@ -84,6 +101,9 @@ function DosCurrentLine({text, onEnter = (command) => "", onArrowUp = (i : numbe
 		};
 	}, [keyboardinput, _command_history_index])
 	
+	useEffect(() => {
+		console.log("_Command_INDEX: %s", _command_history_index);
+	}, [_command_history_index])
 	
 	
 	
