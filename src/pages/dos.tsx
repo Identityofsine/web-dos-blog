@@ -112,6 +112,7 @@ function DosPage() {
 		 * @returns onArrowUp Function
 		 */
 		const onArrowUp = (i = 1) : string => {
+			if(i < 1 || i > usedCommands.length) return ''; 
 			const _return = usedCommands.at(usedCommands.length - i)
 			if(_return)
 				return _return;
@@ -128,7 +129,7 @@ function DosPage() {
                         {oldCommands.map(d => (
                             <DosText text={d} color='white' />
                         ))}
-                        <DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} onArrowUp={onArrowUp} />
+                        <DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} onArrowUp={onArrowUp} arrowLimit={usedCommands.length} />
                     </div>
                 </div>
             </DirectoryContext.Provider>
