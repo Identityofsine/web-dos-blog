@@ -2,6 +2,7 @@
 import {config} from 'dotenv';
 import express from 'express';
 import minimist from "minimist";
+import { connectDatabase } from './db/connecttodb';
 
 config();
 
@@ -23,6 +24,14 @@ export {isDebug};
 //...
 
 app.disable("x-powered-by");
+
+
+
+if(isDebug){
+	connectDatabase(() => {
+		console.log("✅ [MYSQL] Connection successfully established!");
+	});
+}
 
 app.listen(() => {
 	console.log("✅ [EXPRESS] SERVER STARTED, LISTENING ON PORT:%s",PORT);
