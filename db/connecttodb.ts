@@ -3,7 +3,7 @@ import { isDebug } from '..';
 
 
 
-export function connectDatabase(callback : () => void, onError?: (err: Error) => void) {
+export function connectDatabase(callback : () => void, on_error?: (err: Error) => void) {
 	const mysql_connection = mysql.createConnection({
 		host: 'localhost',
 		user: process.env.sqlUSR,
@@ -14,7 +14,7 @@ export function connectDatabase(callback : () => void, onError?: (err: Error) =>
 		if(err) {
 			if(isDebug)
 				console.log('❌ [MYSQL]: Error connecting to the server: ' + err.message);
-			onError(err)
+			on_error(err)
 		};
 
 		callback();
