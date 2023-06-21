@@ -1,9 +1,28 @@
 import mysql = require('mysql');
 import { isDebug } from '..';
+import { DatabaseError } from './dberror';
 
 class SQLConnection {
-	currentConnection: mysql.Connection;
+	private currentConnection: mysql.Connection;
 
+	private static _instance : SQLConnection = undefined;
+
+
+	private constructor() {
+
+	}
+
+	/**
+	 * 
+	 * @returns SQLConnection Instance 
+	 */
+	public static getInstance(): SQLConnection {
+		if(SQLConnection._instance === undefined) {
+			SQLConnection._instance = new SQLConnection();
+		}
+
+		return SQLConnection._instance;
+	}
 
 	/**
 	 * @summary This function connects to the database and uses the 'callback_on_connection' variable to run code on connection, that may need the database.
@@ -19,7 +38,7 @@ class SQLConnection {
 			if(error) {
 				if(isDebug)
 					console.log('❌ [SQLCONNECTION]: Connection to server failed: ' + error.message);
-				on_error(error);
+				on_error(DatabaseError.OPEN_ERROR);
 				return;
 			}
 			callback_on_connection(this.currentConnection, () => this.closeConnection(this.currentConnection, on_error));
@@ -27,8 +46,17 @@ class SQLConnection {
 
 	}
 
-	private closeConnection(connection_object : mysql.Connection, on_error? : (err : mysql.MysqlError) => void) {
-		connection_object.end(on_error);
+	/**
+	 * @summary This function is only called on callback_on_connection;
+	 */
+	private closeConnection(connection_object : mysql.Connection, on_error? : (err : DatabaseError) => void) {
+		connection_object.end((err) => {
+			if(err){
+				if(isDebug)
+					console.log("❌ [SQLCONNECTION]: Closing connection to server failed: " + err);
+				on_error(DatabaseError.CLOSE_ERROR)
+			}
+		});
 	}
 
 	/**
@@ -48,3 +76,5 @@ class SQLConnection {
 	}
 
 }
+
+export default SQLConnection;
