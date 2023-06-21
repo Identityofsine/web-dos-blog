@@ -34,13 +34,18 @@ function debugSQLTestConnection() {
 		console.log("✅ [MYSQL] Connection established!");
 
 		console.log("ℹ️ [MYSQL] Grabbing Selection...");
-		const selection_array = new DirectoryConstructor(sql_object, () => {}).grabAllDirectories();
-		console.log("✅ [MYSQL] Selection grabbed! : ", selection_array);
+		new DirectoryConstructor(sql_object, () => {}).grabAllDirectories((result) => {
+
+			console.log("✅ [MYSQL] Selection grabbed! : ", result);
+
+		});
+
+
 		sql_next(() => {
 			if(isDebug)
 				console.log("✅ [MYSQL] Connection closing!");
-		});
-	}, (db_error_object : DatabaseError) => {
+			});
+		}, (db_error_object : DatabaseError) => {
 		if(isDebug){
 			if(db_error_object == DatabaseError.OPEN_ERROR)
 				console.log("❌ [MYSQL] OPEN ERROR OCCURED");
