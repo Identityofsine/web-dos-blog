@@ -7,7 +7,7 @@ class SQLConnection {
 
 	/**
 	 * @summary This function connects to the database and uses the 'callback_on_connection' variable to run code on connection, that may need the database.
-	 * @param callback_on_connection 
+	 * @param callback_on_connection This function will be called with two parameters, a {mysql.Connection} connection_object, a {() => void} callback that needs to be executed after connection_object is used and done.
 	 */
 	connect(callback_on_connection: (connection_object : mysql.Connection, sql_next : () => void) => void, on_error?: (err: any) => void): void{
 		if(!this.currentConnection) {
