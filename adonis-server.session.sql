@@ -8,14 +8,14 @@ CREATE TABLE file_system(
 CREATE TABLE directory(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	parent_id INT,
-	name VARCHAR(255),
+	name VARCHAR(255) UNIQUE,
 	FOREIGN KEY (parent_id) REFERENCES directory(id)
 );
 
 -- @block
 CREATE TABLE files(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(255),
+	name VARCHAR(255) UNIQUE,
 	parent_id INT NOT NULL,
 	blog_id INT,
 	FOREIGN KEY (parent_id) REFERENCES directory(id),

@@ -26,24 +26,28 @@ export {isDebug};
 
 app.disable("x-powered-by");
 
+function debugSQLTestConnection() {
+	const sql_test_connection = SQLConnection.getInstance();
+	
+	sql_test_connection.connect((sql_object, sql_next) => {
+		console.log("✅ [MYSQL] Connection established!");
+		sql_next(() => {
+			if(isDebug)
+				console.log("✅ [MYSQL] Connection closing!");
+		});
+	}, (db_error_object : DatabaseError) => {
+		if(isDebug){
+			if(db_error_object == DatabaseError.OPEN_ERROR)
+				console.log("❌ [MYSQL] OPEN ERROR OCCURED");
+			if(db_error_object == DatabaseError.CLOSE_ERROR)
+				console.log("❌ [MYSQL] CLOSE ERROR OCCURED");
+		}
+	});
+}
 
-const sql_test_connection = SQLConnection.getInstance();
 
-sql_test_connection.connect((sql_object, sql_next) => {
-	if(isDebug) {
-		console.log("✅ [MYSQL] Connection established... closing!");
-		sql_next();
-	}
-}, (db_error_object : DatabaseError) => {
-	if(isDebug){
-		if(db_error_object == DatabaseError.OPEN_ERROR)
-			console.log("❌ [MYSQL] OPEN ERROR OCCURED");
-		if(db_error_object == DatabaseError.CLOSE_ERROR)
-			console.log("❌ [MYSQL] CLOSE ERROR OCCURED");
-	}
-}, {time:2000});
-
-
+debugSQLTestConnection();
 app.listen(() => {
 	console.log("✅ [EXPRESS] SERVER STARTED, LISTENING ON PORT:%s",PORT);
 });
+
