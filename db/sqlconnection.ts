@@ -9,7 +9,7 @@ class SQLConnection {
 
 
 	private constructor() {
-
+		this.currentConnection = undefined;
 	}
 
 	/**
