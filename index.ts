@@ -41,7 +41,7 @@ sql_test_connection.connect((sql_object, sql_next) => {
 		if(db_error_object == DatabaseError.CLOSE_ERROR)
 			console.log("❌ [MYSQL] CLOSE ERROR OCCURED");
 	}
-});
+}, {time:2000});
 
 
 app.listen(() => {
