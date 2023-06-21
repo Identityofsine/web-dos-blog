@@ -19,6 +19,8 @@ class SQLConnection {
 	public static getInstance(): SQLConnection {
 		if(SQLConnection._instance === undefined) {
 			SQLConnection._instance = new SQLConnection();
+			if(isDebug)
+				console.log('ℹ️ [SQLCONNECTION]: SQLConnection Created!');
 		}
 
 		return SQLConnection._instance;
