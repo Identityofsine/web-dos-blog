@@ -13,7 +13,7 @@ class SQLConnection {
 	}
 
 	/**
-	 * 
+	 * getInstance method returns the instance of SQLConnection
 	 * @returns SQLConnection Instance 
 	 */
 	public static getInstance(): SQLConnection {
