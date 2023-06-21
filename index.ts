@@ -2,7 +2,6 @@
 import {config} from 'dotenv';
 import express from 'express';
 import minimist from "minimist";
-import { connectDatabase } from './db/connecttodb';
 import SQLConnection from './db/sqlconnection';
 import { DatabaseError } from './db/dberror';
 
