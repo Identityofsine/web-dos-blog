@@ -4,6 +4,7 @@ import express from 'express';
 import minimist from "minimist";
 import SQLConnection from './db/sqlconnection';
 import { DatabaseError } from './db/dberror';
+import DirectoryConstructor from './db/dirconstruct/dirconstructor';
 
 config();
 
@@ -31,6 +32,10 @@ function debugSQLTestConnection() {
 	
 	sql_test_connection.connect((sql_object, sql_next) => {
 		console.log("✅ [MYSQL] Connection established!");
+
+		console.log("ℹ️ [MYSQL] Grabbing Selection...");
+		const selection_array = new DirectoryConstructor(sql_object, () => {}).grabAllDirectories();
+		console.log("✅ [MYSQL] Selection grabbed! : ", selection_array);
 		sql_next(() => {
 			if(isDebug)
 				console.log("✅ [MYSQL] Connection closing!");

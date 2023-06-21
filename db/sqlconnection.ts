@@ -85,6 +85,7 @@ class SQLConnection {
 			host: process.env.sqlHOST,
 			user: process.env.sqlUSR,
 			password: process.env.sqlPWD,
+			database: 'wdb_fs',
 		});
 
 	
