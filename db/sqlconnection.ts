@@ -32,6 +32,9 @@ class SQLConnection {
 	 * @param callback_on_connection This function will be called with two parameters, a {mysql.Connection} connection_object, a {() => void} callback that needs to be executed after connection_object is used and done.
 	 */
 	async connect(callback_on_connection: (connection_object : mysql.Connection, sql_next : () => void) => void, on_error?: (err: any) => void, hold_me? : {time:number}): Promise<void>{
+		if(this.is_already_connected && isDebug)
+			console.log('⚠️ [SQLCONNECTION]: Connection already in progress, waiting for it to finish...');
+			 
 		while(this.is_already_connected) {
 			//do nothing until this.is_already_connected is set to false;
 		}
