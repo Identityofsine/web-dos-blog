@@ -64,7 +64,11 @@ class DirectoryConstructor {
 		function sort_directory_into_tree(directories : Directory[]) {
 			for(let i = 0; i < directories.length; i++) {
 				const current_directory = directories[i];
+
+				//initialize the files and directories array
 				current_directory.files = [];
+				current_directory.directories = [];
+				
 				if(current_directory.parent_id == null) {
 					root_directory.directories.push(current_directory);
 				} else {

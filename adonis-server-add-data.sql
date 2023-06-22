@@ -5,6 +5,9 @@ INSERT INTO file_system () VALUES ();
 INSERT INTO directory (name) VALUES ('featured');
 
 -- @block
+INSERT INTO directory (name, parent_id) VALUES ('test_folder', 1);
+
+-- @block
 INSERT INTO files (name, parent_id, blog_id) VALUES ('example', 1, 1);
 
 -- @block
