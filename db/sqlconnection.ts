@@ -86,6 +86,7 @@ class SQLConnection {
 			user: process.env.sqlUSR,
 			password: process.env.sqlPWD,
 			database: 'wdb_fs',
+			multipleStatements: true,
 		});
 
 	

@@ -34,12 +34,9 @@ function debugSQLTestConnection() {
 		console.log("✅ [MYSQL] Connection established!");
 
 		console.log("ℹ️ [MYSQL] Grabbing Selection...");
-		new DirectoryConstructor(sql_object, () => {}).grabAllDirectories((result) => {
-
-			console.log("✅ [MYSQL] Selection grabbed! : ", result);
-
+		new DirectoryConstructor(sql_object, () => {}).grabFileStructure((result) => {
+			console.log(JSON.stringify(result));
 		});
-
 
 		sql_next(() => {
 			if(isDebug)
