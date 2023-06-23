@@ -101,8 +101,7 @@ function DosPage() {
 					if (does_file_exist) {
 							does_file_exist.call(setCMDState);
 					} else {
-							setCMDState(`'${command}' is not recognized as an internal or external command,
-							operable program or batch file.`);    
+							setCMDState(`'${command}' is not recognized as an internal or external command, operable program or batch file.`);    
 					}
         }
         return '';
