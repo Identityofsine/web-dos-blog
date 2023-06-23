@@ -32,9 +32,6 @@ function debugSQLTestConnection() {
 	
 	sql_test_connection.connect((sql_object, sql_next) => {
 		console.log("✅ [MYSQL] Connection established!");
-
-		console.log("ℹ️ [MYSQL] Grabbing Selection...");
-
 		sql_next(() => {
 			if(isDebug)
 				console.log("✅ [MYSQL] Connection closing!");

@@ -3,14 +3,14 @@ import { DatabaseError } from "../dberror";
 import SQLConnection from "../sqlconnection";
 import mysql = require('mysql');
 
-interface File {
+export interface File {
 	id : number,
 	name : string,
 	blog_id: number,
 	parent_id? : number | null,
 }
 
-interface Directory {
+export interface Directory {
 	id : number,
 	name : string,
 	files : File[],
@@ -20,7 +20,7 @@ interface Directory {
 }
 
 //acts as the root
-interface FileTree {
+export interface FileTree {
 	directories : Directory[];
 }
 
