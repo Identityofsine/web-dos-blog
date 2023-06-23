@@ -99,7 +99,7 @@ function DosPage() {
 					else
 							does_file_exist = root.currentFolder.getFile(command);
 					if (does_file_exist) {
-							setCMDState(does_file_exist.call());
+							does_file_exist.call(setCMDState);
 					} else {
 							setCMDState(`'${command}' is not recognized as an internal or external command,
 							operable program or batch file.`);    
