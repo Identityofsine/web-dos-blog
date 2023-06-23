@@ -30,4 +30,4 @@ const emptyRefContext : RefContext<FileSystem> = {
 
 export const DirectoryContext = React.createContext(emptyDirectoryContext);
 
-export const FileSystemContext = React.createContext(emptyRefContext);
+export const FileSystemContext = React.createContext(emptyFileSystemContext);

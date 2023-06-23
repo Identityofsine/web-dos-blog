@@ -17,7 +17,6 @@ export class API {
 		await fetch(url, request_type.defaultOpts)
 		.then(resp => {
 			resp.json().then((json_data) => callback_function(json_data))
-			console.log(resp.body);
 		}).catch((error) => console.log(error));
 	}
 

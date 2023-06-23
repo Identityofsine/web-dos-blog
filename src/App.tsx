@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.scss'
 import DosPage from './pages/dos'
 import { FileSystem } from './obj/directorytree/Directory';
@@ -9,9 +9,7 @@ import { FileSystemContext } from './context/context';
 
 function App() {
   
-	const root = useRef<FileSystem>(new FileSystem());
-
-	
+	const [root, setRoot] = useState(new FileSystem());
 
 
   useEffect(() => {
@@ -22,7 +20,7 @@ function App() {
   }, [])
 
   return (
-		<FileSystemContext.Provider value={{state:root.current, setState:() => {}}}>
+		<FileSystemContext.Provider value={{state:root, setState:() => {}}}>
 			<DosPage/>
 		</FileSystemContext.Provider>
   )

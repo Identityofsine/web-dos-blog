@@ -5,7 +5,7 @@ import { API, APIBlog } from "../../api/API";
  */
 export class File {
     private _name: string;
-    protected _onRun: () => string; //this function returns a string for printing
+    protected _onRun: (onFinish? :(string_data : string) => void) => string; //this function returns a string for printing
 
     /** 
      * @summary Constructor for the File structure
@@ -35,20 +35,30 @@ export class File {
 export class BlogFile extends File {
 
 	private _blog_id : number;
+	private _blog_string : string;
 
 	constructor(name: string, blog_id : number) {
 		super(name, () => "");
+		this._blog_string = "";
 		this._blog_id = blog_id;
-		this._onRun = this.constructBlogPost;
+		this._onRun = (onFinish? : (string_data : string) => void) => {
+			this.constructBlogPost((blog_post : string) => {
+				if(onFinish)
+					onFinish(blog_post);
+			});
+			return "";
+		}
 	}
 
-	private constructBlogPost() : string { 
+	private constructBlogPost(onFinish : (string_data : string) => void) : string { 
 		let blog_post : string = "";
 		API.getInstance().grabBlogPost(this._blog_id, (blog_json : APIBlog) => {
 			blog_post += "# " + blog_json.title + "\n";
 			blog_post += `[${blog_json.image}]\n\n`;
 			blog_post += blog_json.content;
+			onFinish(blog_post);
 		});
 		return blog_post;
 	}
+
 }
