@@ -10,7 +10,6 @@ export async function GetBlog(req : Request, res : Response) {
 	const blog_id = parseInt(req.query.blog_id as string);
 	if(blog_id == undefined) return res.status(400).json({message: "No blog id provided."});
 
-
 	const sql_connection = SQLConnection.getInstance();
 	sql_connection.connect((sql_connection_object, on_next) => {
 		GrabBlog(sql_connection_object, blog_id, (blog_json) => {
