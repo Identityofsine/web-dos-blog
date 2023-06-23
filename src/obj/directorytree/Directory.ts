@@ -1,6 +1,6 @@
 import { API, APIDirectoryResponse, APIFileResponse } from "../../api/API.js";
 import { fillerTextOne, fillerTextThree, fillerTextTwo, markdownexample } from "../../debug/STATIC_TEXT.js";
-import { File } from "./File";
+import { BlogFile, File } from "./File";
 
 /**
 * This class acts as a Drive for the emulated device. When instantiated, this object acts as a root directory; it keeps track of the currentFolder and the rootFolder (which never changes). There are methods to modify and manipulate the currentFolder.
@@ -51,7 +51,7 @@ export class FileSystem {
 	}
 
 	private castAPIFiletoFile(file : APIFileResponse) : File {
-		return new File(file.name, () => `${file.blog_id}`);
+		return new BlogFile(file.name, file.blog_id);
 	}
 	
 	/**

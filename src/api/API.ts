@@ -31,6 +31,17 @@ export class API {
 		await this.request('/api/getfilestructure', API_GET, (data) => { onFinish(data); });
 	}
 
+	public async grabBlogPost(blog_id: number, onFinish : (posts : APIBlog) => void) {
+		const API_GET : APIType = {
+			method: 'GET',
+			defaultOpts: {
+				method: 'GET',
+			}
+		}
+		await this.request(`/api/getblog?blog_id=${blog_id}`, API_GET, (data) => { onFinish(data); });
+	}
+
+
 }
 
 
@@ -56,4 +67,13 @@ export interface APIFileResponse {
 	name:string,
 	blog_id:number,
 	parent_id:number,
+}
+
+export interface APIBlog {
+	id:number,
+	title:string,
+	image:string,
+	content:string,
+	created_at:number,
+	updated_at:number,
 }

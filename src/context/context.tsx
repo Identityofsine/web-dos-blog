@@ -6,6 +6,12 @@ interface StateContext <E> {
     setState:React.Dispatch<React.SetStateAction<E>>,
 };
 
+interface RefContext<E> {
+	state: E | undefined,
+	setState: (newVal : E) => void,
+}
+
+
 const emptyDirectoryContext : StateContext<string> = {
     state:"",
     setState:() => {},  
@@ -16,6 +22,12 @@ const emptyFileSystemContext : StateContext<FileSystem> = {
     setState:() => {},  
 };
 
+const emptyRefContext : RefContext<FileSystem> = {
+	state: undefined,
+	setState: () => {},
+}
+
+
 export const DirectoryContext = React.createContext(emptyDirectoryContext);
 
-export const FileSystemContext = React.createContext(emptyFileSystemContext);
+export const FileSystemContext = React.createContext(emptyRefContext);

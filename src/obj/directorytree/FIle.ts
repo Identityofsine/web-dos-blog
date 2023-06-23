@@ -1,9 +1,11 @@
+import { API, APIBlog } from "../../api/API";
+
 /**
  * File class for the FileStructure System
  */
 export class File {
     private _name: string;
-    private _onRun: () => string; //this function returns a string for printing
+    protected _onRun: () => string; //this function returns a string for printing
 
     /** 
      * @summary Constructor for the File structure
@@ -28,4 +30,25 @@ export class File {
     public getName() : string { 
         return this._name; 
     }
+}
+
+export class BlogFile extends File {
+
+	private _blog_id : number;
+
+	constructor(name: string, blog_id : number) {
+		super(name, () => "");
+		this._blog_id = blog_id;
+		this._onRun = this.constructBlogPost;
+	}
+
+	private constructBlogPost() : string { 
+		let blog_post : string = "";
+		API.getInstance().grabBlogPost(this._blog_id, (blog_json : APIBlog) => {
+			blog_post += "# " + blog_json.title + "\n";
+			blog_post += `[${blog_json.image}]\n\n`;
+			blog_post += blog_json.content;
+		});
+		return blog_post;
+	}
 }

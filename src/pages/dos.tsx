@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './dos.scss';
 import DosText from '../assets/elements/dos-text/dos-text';
 import DosCurrentLine from '../assets/elements/dos-currentline/dos-currentline';
@@ -20,8 +20,7 @@ function DosPage() {
     const [oldCommands, setOldCommands] = useState<string[]>([]);
 		const [usedCommands, setUsedCommands] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
-    const [root, setRoot] = useState(new FileSystem());
-
+		const root = useContext(FileSystemContext).state;
     /**
      * @summary Simple function that creates and assigns commands their functions...
      */
@@ -42,14 +41,16 @@ function DosPage() {
             return outputstring;
         });
         CommandList.addCommandListener("cd", {name: "changedir", function: () => {
-            const responseValue = root.getCurrentPath();
-            setCurrentDirectory(`C:${responseValue.substring(0, responseValue.length - 1)}>`);
+					if(!root) return;
+					const responseValue = root.getCurrentPath();
+					setCurrentDirectory(`C:${responseValue.substring(0, responseValue.length - 1)}>`);
         }});
     }
 
     useEffect(() => {
-        DEFAULT_COMMANDS(root);
-        commandConfigs();
+			if(!root) return;
+			DEFAULT_COMMANDS(root);
+			commandConfigs();
     }, []);
 
 
@@ -90,18 +91,19 @@ function DosPage() {
         const _command_response = handleCommand([_real_command], _args_passthrough, (_command: string) => setCMDState(_command));
         if(_command_response) return '';
         else {
-            // TODO: handle files in the directory
-            let does_file_exist : File | undefined;
-            if(command.slice(0 , 2) == './')
-                does_file_exist = root.currentFolder.getFile(command.slice(2, command.length));
-            else
-                does_file_exist = root.currentFolder.getFile(command);
-            if (does_file_exist) {
-                setCMDState(does_file_exist.call());
-            } else {
-                setCMDState(`'${command}' is not recognized as an internal or external command,
-                operable program or batch file.`);    
-            }
+					if(!root) return;
+					// TODO: handle files in the directory
+					let does_file_exist : File | undefined;
+					if(command.slice(0 , 2) == './')
+							does_file_exist = root.currentFolder.getFile(command.slice(2, command.length));
+					else
+							does_file_exist = root.currentFolder.getFile(command);
+					if (does_file_exist) {
+							setCMDState(does_file_exist.call());
+					} else {
+							setCMDState(`'${command}' is not recognized as an internal or external command,
+							operable program or batch file.`);    
+					}
         }
         return '';
     }
@@ -122,18 +124,16 @@ function DosPage() {
 
 
     return (
-        <FileSystemContext.Provider value={{state: root, setState: setRoot}}>
-            <DirectoryContext.Provider value={{state:curDirectory, setState:setCurrentDirectory}}>
-                <div className='dos-command-page' ref={ref as React.RefObject<HTMLDivElement>}>
-                    <div className='dos-command-container'>
-                        {oldCommands.map(d => (
-                            <DosText text={d} color='white' />
-                        ))}
-                        <DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} onArrowUp={onArrowUp} arrowLimit={usedCommands.length} />
-                    </div>
-                </div>
-            </DirectoryContext.Provider>
-        </FileSystemContext.Provider>
+			<DirectoryContext.Provider value={{state:curDirectory, setState:setCurrentDirectory}}>
+					<div className='dos-command-page' ref={ref as React.RefObject<HTMLDivElement>}>
+							<div className='dos-command-container'>
+									{oldCommands.map(d => (
+											<DosText text={d} color='white' />
+									))}
+									<DosCurrentLine text={curDirectory} onEnter={(command) => { onEnterDos(command); return ""; }} onArrowUp={onArrowUp} arrowLimit={usedCommands.length} />
+							</div>
+					</div>
+			</DirectoryContext.Provider>
     )
 }
 
