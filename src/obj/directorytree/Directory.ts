@@ -26,7 +26,6 @@ export class FileSystem {
 	
 	private initRootFolder_API() {
 		API.getInstance().grabFileSystem((json_data) => {
-			console.log(json_data);
 			this.rootFolder = new DirectoryTree("");
 			this.currentFolder = this.rootFolder;
 			for(let i = 0; i < json_data["directories"].length; i++) {
