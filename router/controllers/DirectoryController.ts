@@ -5,7 +5,6 @@ import { isDebug } from '../..';
 
 
 export async function GetFileStructure(req : Request, res : Response) {
-	let json_directory_value : FileTree;
 	const sql_connection = SQLConnection.getInstance();
 	sql_connection.connect((sql_connection_object, on_next) => {
 		const dr_constructor = new DirectoryConstructor(sql_connection_object, (dc_err) => {
