@@ -5,6 +5,7 @@ import minimist from "minimist";
 import SQLConnection from './db/sqlconnection';
 import { DatabaseError } from './db/dberror';
 import DirectoryConstructor from './db/dirconstruct/dirconstructor';
+import dir_router from './router/routes/dir.routes';
 
 config();
 
@@ -46,9 +47,15 @@ function debugSQLTestConnection() {
 	});
 }
 
+app.disable("x-powered-by"); //idky you need this but you do
+//this must be turned on to allow the backend to work with JSON bodies.
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-debugSQLTestConnection();
-app.listen(() => {
+app.use('/api', dir_router);
+
+// debugSQLTestConnection();
+app.listen(PORT, () => {
 	console.log("✅ [EXPRESS] SERVER STARTED, LISTENING ON PORT:%s",PORT);
 });
 

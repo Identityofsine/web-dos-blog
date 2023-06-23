@@ -64,6 +64,8 @@ class SQLConnection {
 	 * @summary This function is only called on callback_on_connection;
 	 */
 	private closeConnection(connection_object : mysql.Connection, on_error? : (err : DatabaseError) => void, close_callback? : () => void) {
+
+		this.currentConnection = undefined;
 		connection_object.end((err) => {
 			this.is_already_connected = false;
 			if(err){
@@ -71,8 +73,11 @@ class SQLConnection {
 					console.log("❌ [SQLCONNECTION]: Closing connection to server failed: " + err);
 				on_error(DatabaseError.CLOSE_ERROR)
 			}
-			if(close_callback)
+			if(isDebug)
+				console.log("✅ [SQLCONNECTION]: Connection closed!");
+			if(close_callback) {
 				close_callback();
+			}
 		});
 	}
 

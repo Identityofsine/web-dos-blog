@@ -12,14 +12,16 @@ export async function GetFileStructure(req : Request, res : Response) {
 			if(isDebug) {
 				console.log('❌ [MYSQL] Error occured while grabbing all directories: ' + dc_err);
 			}
+			on_next();
 			res.status(500).send("Error occured while grabbing all directories: " + dc_err);
+			
 			return;
 		});
-		
+
 		dr_constructor.grabFileStructure((file_tree) => {
+			on_next();
 			res.status(200).json(file_tree);
 		});
-
 	}, (sql_error) => {
 		if(isDebug) {
 			console.log('❌ [MYSQL] Error occured while connecting to the database: ' + sql_error);
