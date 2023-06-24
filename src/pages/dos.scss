@@ -2,6 +2,7 @@
 div.dos-command-page{
     width: 95vw;
     height: 100vh;
+		padding-left: .5vw;
     display: flex;
     align-items: flex-start;
     overflow: auto;
@@ -19,5 +20,12 @@ div.dos-command-page{
         gap:5px;
         white-space: pre-wrap;
     }
-    
+    .dos-image{
+			width: 70%;
+			height: 58vh;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			outline: 5px solid white;
+		}
 }
