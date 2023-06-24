@@ -30,6 +30,11 @@ export namespace TextEngine {
 		private _createTextElement(text: string): React.JSX.Element {
 			return (<span>{text}</span>);
 		}
+
+		private _createImageElement(text: string): React.JSX.Element {
+			const _image_url = text.replace('[', '').replace(']', '');
+			return (<div className="dos-image" style={{backgroundImage:`url(${_image_url})`}}/>)
+		}
 		
 		// Private method to create a subheader element
 		private _createSubHeaderElement(text: string): React.JSX.Element {
@@ -107,6 +112,8 @@ export namespace TextEngine {
 					_elements.push(this._createHeaderElement(_line));
 				} else if(_line.charAt(0) === '>') {
 					_elements.push(this._createQuoteElement(_line));
+				} else if(_line.charAt(0) === '[' && _line.charAt(_line.length - 1)) { 
+					_elements.push(this._createImageElement(_line));
 				} else {
 					// If not a header, create a regular text element
 					// _elements.push(this._createTextElement(_line));
