@@ -19,8 +19,8 @@ export async function GetBlog(req : Request, res : Response) {
 				res.status(404).json({message: "Blog not found."});
 			}
 			res.status(200).json(blog_json);
-			on_next();
 		});
+		on_next();
 	}, (sql_error) => {
 		if(isDebug)
 			console.log('❌ [MYSQL:%s] Error occured while connecting to the database: ' + sql_error, methodSignature);

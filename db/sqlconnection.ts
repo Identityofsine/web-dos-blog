@@ -32,19 +32,23 @@ class SQLConnection {
 	 * @param callback_on_connection This function will be called with two parameters, a {mysql.Connection} connection_object, a {() => void} callback that needs to be executed after connection_object is used and done.
 	 */
 	async connect(callback_on_connection: (connection_object : mysql.Connection, sql_next : (close_callback? : () => void) => void) => void, on_error?: (err: any) => void, hold_me? : {time:number}): Promise<void>{
-		if(this.is_already_connected && isDebug)
+		if(this.is_already_connected && isDebug) {
 			console.log('⚠️ [SQLCONNECTION]: Connection already in progress, waiting for it to finish...');
+			return;
+		}
 
 		if(!this.currentConnection) {
 			this.currentConnection = this.createConnection();
 			if(isDebug)
 				console.log('ℹ️ [SQLCONNECTION]: Connection Object Created!');
 		}
+		this.is_already_connected = true;
 		this.currentConnection.connect((error : mysql.MysqlError) => {
 			if(error) {
 				if(isDebug)
 					console.log('❌ [SQLCONNECTION]: Connection to server failed: ' + error.message);
 				on_error(error.code === 'PROTOCOL_ENQUEUE_HANDSHAKE_TWICE' ? DatabaseError.ALREADY_OPEN : DatabaseError.OPEN_ERROR);
+				this.closeConnection(this.currentConnection, on_error, () => {}); // Close connection if error.
 				this.is_already_connected = false;
 
 				return;
