@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import './dos.scss';
 import DosText from '../assets/elements/dos-text/dos-text';
 import DosCurrentLine from '../assets/elements/dos-currentline/dos-currentline';
-import handleCommand, { Command, CommandList } from '../obj/command/command';
+import handleCommand, { Argument, Command, CommandList } from '../obj/command/command';
 import { DirectoryContext, FileSystemContext } from '../context/context';
 import DEFAULT_COMMANDS from '../obj/command/_default_commands';
 import { FileSystem } from '../obj/directorytree/Directory';
@@ -45,6 +45,11 @@ function DosPage() {
             const responseValue = root.getCurrentPath();
             setCurrentDirectory(`C:${responseValue.substring(0, responseValue.length - 1)}>`);
         }});
+				CommandList.addCommand(new Command("clear", "Clears the screen", [], () => {
+					setOldCommands([]);
+					return "";
+				}));
+
     }
 
     useEffect(() => {
