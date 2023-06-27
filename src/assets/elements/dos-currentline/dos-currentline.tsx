@@ -26,6 +26,39 @@ function DosCurrentLine({text, onEnter = (command) => "", onArrowUp = (i : numbe
 	const root = useContext(FileSystemContext);
 	useEffect(() => {
 		//this function handles on keydown events
+
+
+		const changeKeyboardInput = (resp : string | undefined) => {
+			if(!resp)
+				return;
+			setKeyboardInput(resp);
+		};
+
+		const callArrowUp = () => {
+			let _arrow_up_response = onArrowUp(_command_history_index);
+			_set_command_history_index((prev) => {
+				const _val = prev + 1;
+				if (_val >= arrowLimit)
+					return arrowLimit;
+				return _val;
+			});
+			changeKeyboardInput(_arrow_up_response);
+		};
+		const callArrowDown = () => {
+			let _arrow_down_response = onArrowUp(_command_history_index - 1);
+			_set_command_history_index((prev) => {
+				const _val = prev - 1;
+				if(_val < 2) return 2;
+				return _val;
+			});
+			changeKeyboardInput(_arrow_down_response);
+		};
+
+		const resetCommandHistory = () => {
+			_set_command_history_index(1);
+		};
+
+
 		const handleKeyDown = (ev : KeyboardEvent) => {
 			//ignore these keys for now
 			switch (ev.key) {
@@ -35,31 +68,14 @@ function DosCurrentLine({text, onEnter = (command) => "", onArrowUp = (i : numbe
 				case "Escape":
 				case "Meta":
 				// Exclude Alt, Ctrl, Shift, and Meta keys
-					_set_command_history_index(1);
+					resetCommandHistory();
 					ev.preventDefault;
 					return;
 				case "ArrowUp":
-					let _arrow_up_response = onArrowUp(_command_history_index);
-					_set_command_history_index((prev) => {
-						const _val = prev + 1;
-						if (_val >= arrowLimit)
-							return arrowLimit;
-						return _val;
-					});
-					if(!_arrow_up_response)
-						return;
-					setKeyboardInput(_arrow_up_response);
+					callArrowUp();
 					return;
 				case "ArrowDown":
-					_set_command_history_index((prev) => {
-						const _val = prev - 1;
-						if(_val < 2) return 2;
-						return _val;
-					});
-					let _arrow_down_response = onArrowUp(_command_history_index - 1);
-					if(!_arrow_down_response)
-						return;
-					setKeyboardInput(_arrow_down_response);
+					callArrowDown();
 					return;
 				case "Tab":
 					//TODO :: WRITE TAB HANDLING CODE (AUTO COMPLETION)
@@ -67,7 +83,7 @@ function DosCurrentLine({text, onEnter = (command) => "", onArrowUp = (i : numbe
 					ev.preventDefault();
 					return;
 				default:
-					_set_command_history_index(1);
+					resetCommandHistory();
 					break;
 			}
 			
