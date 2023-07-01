@@ -6,7 +6,6 @@ div.dos-command-page{
     display: flex;
     align-items: flex-start;
     overflow: auto;
-
 		scrollbar-width: none; /* Firefox 64 */
 		-ms-overflow-style: none; /* IE 11 */
     &::-webkit-scrollbar{
@@ -17,7 +16,7 @@ div.dos-command-page{
         display: flex;
         align-items: flex-start;
         flex-direction: column;
-        gap:5px;
+        gap: .07em;
         white-space: pre-wrap;
     }
     .dos-image{
@@ -26,6 +25,6 @@ div.dos-command-page{
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;
-			outline: 5px solid white;
+			outline: .08em solid white;
 		}
 }
