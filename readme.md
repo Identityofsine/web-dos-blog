@@ -1,9 +1,8 @@
-# WEB-DOS
+# WEB-DOS-BLOG
 
-Go and visit a build of the WEB-DOS-BASE ! 
->https://identityofsine.github.io/web-dos-base/
 
-### Welcome to the WEB DOS Base project.
+
+### Welcome to the WEB DOS BLOG project.
 
 This project aims to provide developers with a framework that allows them to make (dos/terminal)-themed applications.
 
