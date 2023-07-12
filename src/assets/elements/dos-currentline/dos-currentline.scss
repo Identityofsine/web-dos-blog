@@ -9,10 +9,10 @@
     font-size: 2vw;
     gap:2px;
     white-space: pre-wrap;
-
+		width: fit-content;
     .blinker{
         position: absolute;
-        right:-1vw;
+        right:-.56rem;
         @keyframes blink {
             0%{
                 opacity: 0;

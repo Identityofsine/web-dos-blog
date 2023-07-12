@@ -100,14 +100,15 @@ function DosPage() {
 					// TODO: handle files in the directory
 					let does_file_exist : File | undefined;
 					if(command.slice(0 , 2) == './')
-							does_file_exist = root.currentFolder.getFile(command.slice(2, command.length));
+							does_file_exist = root.currentFolder?.getFile(command.slice(2, command.length));
 					else
-							does_file_exist = root.currentFolder.getFile(command);
+							does_file_exist = root.currentFolder?.getFile(command);
 					if (does_file_exist) {
 							does_file_exist.call(setCMDState);
 					} else {
 							setCMDState(`'${command}' is not recognized as an internal or external command, operable program or batch file.`);    
 					}
+					console.log('sex')
         }
         return '';
     }

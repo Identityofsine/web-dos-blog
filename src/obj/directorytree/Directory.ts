@@ -30,13 +30,13 @@ export class FileSystem {
 			this.currentFolder = this.rootFolder;
 			for(let i = 0; i < json_data["directories"].length; i++) {
 				const old_directory_object = json_data["directories"][i];
-				const directory = this.castAPIDirectoryToDirectroyTree(old_directory_object);
+				const directory = this.castAPIDirectoryToDirectoryTree(old_directory_object);
 				this.rootFolder.children.push(directory);
 			}
 		});
 	}
 
-	private castAPIDirectoryToDirectroyTree(directory : APIDirectoryResponse) : DirectoryTree {
+	private castAPIDirectoryToDirectoryTree(directory : APIDirectoryResponse) : DirectoryTree {
 		const directory_casted = new DirectoryTree(directory.name);
 		for(let f = 0; f < directory["files"].length; f++) {
 			const files_found = directory["files"][f];
@@ -44,7 +44,7 @@ export class FileSystem {
 		}
 		for(let d = 0; d < directory["directories"].length; d++) {
 			const child_directory_found = directory["directories"][d];
-			const child_directory_casted = this.castAPIDirectoryToDirectroyTree(child_directory_found);
+			const child_directory_casted = this.castAPIDirectoryToDirectoryTree(child_directory_found);
 			directory_casted.children.push(child_directory_casted);
 		}
 		return directory_casted;

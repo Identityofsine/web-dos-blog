@@ -16,8 +16,9 @@ export default function DEFAULT_COMMANDS(root : FileSystem) {
     }));
 
     CommandList.addCommand(new Command('ls', 'List everything in the current directory', [], () => {
-      let returnString = `Directory of ${root.currentFolder.returnPath()}\n`;
-      const children = root.currentFolder.listChildren();
+      let returnString = `Directory of ${root.currentFolder?.returnPath()}\n`;
+      const children = root.currentFolder?.listChildren();
+			if(!children || children.length <= 0) return 'ERROR: No children found!';
       for(let path of children) {
         returnString += path + '\n';
       };
