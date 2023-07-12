@@ -4,7 +4,7 @@ div.dos-command-page{
     height: 100vh;
 		padding-left: .5vw;
     display: flex;
-    align-items: flex-start;
+    align-itrems: flex-start;
     overflow: auto;
 		scrollbar-width: none; /* Firefox 64 */
 		-ms-overflow-style: none; /* IE 11 */
@@ -14,9 +14,9 @@ div.dos-command-page{
 
     .dos-command-container{
         display: flex;
-        align-items: flex-start;
+        align-itrems: flex-start;
         flex-direction: column;
-        gap: .07em;
+        gap: .07rem;
         white-space: pre-wrap;
     }
     .dos-image{
@@ -25,6 +25,6 @@ div.dos-command-page{
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;
-			outline: .08em solid white;
+			outline: .08rem solid white;
 		}
 }
